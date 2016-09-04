@@ -1,0 +1,1221 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link href="css/tablecss.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery-1.11.3.js"></script> 
+
+ <script type="text/javascript">
+ var month_url="MonthDataController.do?command=viewMain";
+     
+$(function() {
+	var nexArr = '2016-02'.split("-");
+	var preArr = '2015-12'.split("-");
+	var now = new Date();
+	if(new Date(nexArr[0],nexArr[1]-1,1) >= new Date(now.getFullYear(), now.getMonth()+1, 1))
+		$("#nexItem").css("display","none");
+	if(new Date(preArr[0],preArr[1]-1,1) < new Date(now.getFullYear()-3, now.getMonth()+1, 1))
+		$("#preItem").css("display","none");
+	
+	
+	$("#preItem").click(function (event){
+		//window.location.href =month_url+"&station="+$("#stno").val()+"&datepicker="+$("#preDate").val();
+		window.location.href =encodeURI(month_url+"&station="+$("#stno").val()+"&stname="+encodeURI($("#stnCname").val())+"&datepicker="+$("#preDate").val());
+    });
+	 
+	$("#nexItem").click(function (event){
+		//window.location.href =month_url+"&station="+$("#stno").val()+"&datepicker="+$("#nexDate").val();
+		window.location.href =encodeURI(month_url+"&station="+$("#stno").val()+"&stname="+encodeURI($("#stnCname").val())+"&datepicker="+$("#nexDate").val());
+	});	 
+});
+ </script>
+</head>
+<body>
+<div id="hea_t" style="position:fixed;top:0px;">
+<table border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td>測站:467530_ALISHAN&nbsp;&nbsp;</td>
+<td><a id="preItem" href="#"><input type="image" src="images/buttons_l.png"   width="24" height="24"></a></td>
+<td>觀測時間:2016-01</td>
+<td><a id="nexItem" href="#"><input type="image" src="images/buttons_r.png"   width="24" height="24"></a></td>
+</tr>
+</table>
+	<input type="hidden"  value="467530" id="stno">
+	<input type="hidden"  value="2015-12" id="preDate">
+	<input type="hidden"  value="2016-02" id="nexDate">
+	<input type="hidden"  value="ALISHAN" id="stnCname">
+</div>
+<div class="CSSTableGenerator" style="position:relative;top:30px">
+	<table id="MyTable" border="0" cellpadding="10" cellspacing="0">
+	<tbody>
+	<tr class="first_tr">
+		<th width="10px">&nbsp;</th>
+		<th colspan="6">press</th>
+		<th colspan="5">temperature</th>
+		<th>Dew Point</th>
+		<th colspan="3">RH</th>
+		<th colspan="5">WS/WD</th>
+		<th colspan="6">Precp</th>
+		<th colspan="3">SunShine</th>
+		<th>visibility</th>
+		<th>Evaperation</th>
+	 </tr>
+	 <tr class="second_tr">
+		<th>觀測時間<br>(LST)<br>ObsTime</th>
+		<th>測站氣壓<br>(hPa)<br>StnPres</th>
+		<th>海平面氣壓<br>(hPa)<br>SeaPres</th>
+		<th>測站最高氣壓<br>(hPa)<br>StnPresMax</th>
+		<th>測站最高氣壓時間<br>(LST)<br>StnPresMaxTime</th>
+		<th>測站最低氣壓<br>(hPa)<br>StnPresMin</th>
+		<th>測站最低氣壓時間<br>(LST)<br>StnPresMinTime</th>
+		<th>氣溫<br>(℃)<br>Temperature</th>
+		<th>最高氣溫<br>(℃)<br>T Max</th>
+		<th>最高氣溫時間<br>(LST)<br>T Max Time</th>
+		<th>最低氣溫<br>(℃)<br>T Min</th>
+		<th>最低氣溫時間<br>(LST)<br>T Min Time</th>
+		<th>露點溫度<br>(℃)<br>Td dew point</th>
+		<th>相對溼度<br>(%)<br>RH</th>
+		<th>最小相對溼度<br>(%)<br>RHMin</th>
+		<th>最小相對溼度時間<br>(LST)<br>RHMinTime</th>
+		<th>風速<br>(m/s)<br>WS   </th>
+		<th>風向<br>(最多風向)<br>(360degree)<br>WD   </th>
+		<th>最大陣風<br>(m/s)<br>WSGust</th>
+		<th>最大陣風風向<br>(360degree)<br>WDGust</th>
+		<th>最大陣風風速時間<br>(LST)<br>WGustTime</th>
+		<th>降水量<br>(mm)<br>Precp</th>
+		<th>降水時數<br>(hr)<br>PrecpHour </th>
+		<th>10分鐘最大降水量<br>(mm)<br>PrecpMax10</th>
+		<th>10分鐘最大降水起始時間<br>(LST)<br>PrecpMax10Time</th>
+		<th>一小時最大降水量<br>(mm)<br>PrecpHrMax</th>
+		<th>一小時最大降水量起始時間<br>(LST)<br>PrecpHrMaxTime</th>
+		<th>日照時數<br>(hr)<br>SunShine</th>
+		<th>日照率<br>(%)<br>SunShineRate</th>
+		<th>全天空日射量<br>(MJ/㎡)<br>GloblRad</th>
+		<th>能見度<br>(km)<br>VisbMean</th>
+		<th>A型蒸發量<br>(mm)<br>EvapA</th>		
+	 </tr>
+	 
+	 
+	 
+	 <tr>
+		<td nowrap>1</td>
+		<td>771.0&nbsp;</td>
+		<td>3213.1&nbsp;</td>
+		<td>772.5&nbsp;</td>
+		<td>2016-01-01 09:08&nbsp;</td>
+		<td>769.7&nbsp;</td>
+		<td>2016-01-01 04:14&nbsp;</td>
+		<td>9.1&nbsp;</td>
+		<td>13.4&nbsp;</td>
+		<td>2016-01-01 11:28&nbsp;</td>
+		<td>6.2&nbsp;</td>
+		<td>2016-01-01 23:00&nbsp;</td>
+		<td>4.3&nbsp;</td>
+		<td>72&nbsp;</td>
+		<td>62&nbsp;</td>
+		<td>2016-01-01 11:27&nbsp;</td>
+		<td>1.2&nbsp;</td>
+		<td>190&nbsp;</td>
+		<td>4.7&nbsp;</td>
+		<td>160&nbsp;</td>
+		<td>2016-01-01 03:25&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>9.3&nbsp;</td>
+		<td>87.1&nbsp;</td>
+		<td>15.62&nbsp;</td>
+		<td>24.2&nbsp;</td>
+		<td>0.6&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>2</td>
+		<td>770.1&nbsp;</td>
+		<td>3206.6&nbsp;</td>
+		<td>771.6&nbsp;</td>
+		<td>2016-01-02 00:03&nbsp;</td>
+		<td>768.5&nbsp;</td>
+		<td>2016-01-02 16:31&nbsp;</td>
+		<td>10.4&nbsp;</td>
+		<td>15.2&nbsp;</td>
+		<td>2016-01-02 12:22&nbsp;</td>
+		<td>6.7&nbsp;</td>
+		<td>2016-01-02 00:34&nbsp;</td>
+		<td>5.0&nbsp;</td>
+		<td>70&nbsp;</td>
+		<td>41&nbsp;</td>
+		<td>2016-01-02 07:01&nbsp;</td>
+		<td>1.7&nbsp;</td>
+		<td>160&nbsp;</td>
+		<td>8.0&nbsp;</td>
+		<td>120&nbsp;</td>
+		<td>2016-01-02 21:34&nbsp;</td>
+		<td>7.5&nbsp;</td>
+		<td>8.1&nbsp;</td>
+		<td>1.0&nbsp;</td>
+		<td>2016-01-02 19:08&nbsp;</td>
+		<td>2.0&nbsp;</td>
+		<td>2016-01-02 15:43&nbsp;</td>
+		<td>1.6&nbsp;</td>
+		<td>15.0&nbsp;</td>
+		<td>7.18&nbsp;</td>
+		<td>17.2&nbsp;</td>
+		<td>-0.9&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>3</td>
+		<td>768.9&nbsp;</td>
+		<td>3194.2&nbsp;</td>
+		<td>770.3&nbsp;</td>
+		<td>2016-01-03 10:30&nbsp;</td>
+		<td>767.0&nbsp;</td>
+		<td>2016-01-03 14:51&nbsp;</td>
+		<td>10.6&nbsp;</td>
+		<td>11.9&nbsp;</td>
+		<td>2016-01-03 20:04&nbsp;</td>
+		<td>9.4&nbsp;</td>
+		<td>2016-01-03 01:53&nbsp;</td>
+		<td>10.1&nbsp;</td>
+		<td>97&nbsp;</td>
+		<td>90&nbsp;</td>
+		<td>2016-01-03 00:01&nbsp;</td>
+		<td>1.4&nbsp;</td>
+		<td>310&nbsp;</td>
+		<td>8.9&nbsp;</td>
+		<td>340&nbsp;</td>
+		<td>2016-01-03 11:36&nbsp;</td>
+		<td>98.0&nbsp;</td>
+		<td>22.5&nbsp;</td>
+		<td>5.5&nbsp;</td>
+		<td>2016-01-03 20:37&nbsp;</td>
+		<td>15.5&nbsp;</td>
+		<td>2016-01-03 19:50&nbsp;</td>
+		<td>1.0&nbsp;</td>
+		<td>9.4&nbsp;</td>
+		<td>0.14&nbsp;</td>
+		<td>2.3&nbsp;</td>
+		<td>-0.6&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>4</td>
+		<td>769.1&nbsp;</td>
+		<td>3199.6&nbsp;</td>
+		<td>770.9&nbsp;</td>
+		<td>2016-01-04 08:59&nbsp;</td>
+		<td>768.0&nbsp;</td>
+		<td>2016-01-04 14:43&nbsp;</td>
+		<td>11.1&nbsp;</td>
+		<td>16.8&nbsp;</td>
+		<td>2016-01-04 12:05&nbsp;</td>
+		<td>7.2&nbsp;</td>
+		<td>2016-01-04 21:41&nbsp;</td>
+		<td>9.4&nbsp;</td>
+		<td>89&nbsp;</td>
+		<td>74&nbsp;</td>
+		<td>2016-01-04 23:05&nbsp;</td>
+		<td>1.4&nbsp;</td>
+		<td>180&nbsp;</td>
+		<td>7.6&nbsp;</td>
+		<td>270&nbsp;</td>
+		<td>2016-01-04 00:28&nbsp;</td>
+		<td>7.3&nbsp;</td>
+		<td>5.2&nbsp;</td>
+		<td>1.7&nbsp;</td>
+		<td>2016-01-04 12:46&nbsp;</td>
+		<td>3.7&nbsp;</td>
+		<td>2016-01-04 12:30&nbsp;</td>
+		<td>4.1&nbsp;</td>
+		<td>38.4&nbsp;</td>
+		<td>9.19&nbsp;</td>
+		<td>13.6&nbsp;</td>
+		<td>-0.9&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>5</td>
+		<td>767.9&nbsp;</td>
+		<td>3184.5&nbsp;</td>
+		<td>769.2&nbsp;</td>
+		<td>2016-01-05 09:28&nbsp;</td>
+		<td>766.5&nbsp;</td>
+		<td>2016-01-05 14:36&nbsp;</td>
+		<td>10.8&nbsp;</td>
+		<td>14.7&nbsp;</td>
+		<td>2016-01-05 10:30&nbsp;</td>
+		<td>7.3&nbsp;</td>
+		<td>2016-01-05 01:13&nbsp;</td>
+		<td>6.1&nbsp;</td>
+		<td>73&nbsp;</td>
+		<td>56&nbsp;</td>
+		<td>2016-01-05 07:34&nbsp;</td>
+		<td>1.3&nbsp;</td>
+		<td>140&nbsp;</td>
+		<td>5.4&nbsp;</td>
+		<td>140&nbsp;</td>
+		<td>2016-01-05 06:56&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>3.9&nbsp;</td>
+		<td>36.5&nbsp;</td>
+		<td>11.66&nbsp;</td>
+		<td>22.5&nbsp;</td>
+		<td>-0.7&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>6</td>
+		<td>766.9&nbsp;</td>
+		<td>3169.4&nbsp;</td>
+		<td>768.4&nbsp;</td>
+		<td>2016-01-06 09:46&nbsp;</td>
+		<td>765.9&nbsp;</td>
+		<td>2016-01-06 14:59&nbsp;</td>
+		<td>8.6&nbsp;</td>
+		<td>13.4&nbsp;</td>
+		<td>2016-01-06 14:35&nbsp;</td>
+		<td>4.8&nbsp;</td>
+		<td>2016-01-06 21:59&nbsp;</td>
+		<td>5.8&nbsp;</td>
+		<td>83&nbsp;</td>
+		<td>57&nbsp;</td>
+		<td>2016-01-06 22:29&nbsp;</td>
+		<td>1.6&nbsp;</td>
+		<td>20&nbsp;</td>
+		<td>9.6&nbsp;</td>
+		<td>290&nbsp;</td>
+		<td>2016-01-06 10:39&nbsp;</td>
+		<td>14.5&nbsp;</td>
+		<td>5.5&nbsp;</td>
+		<td>3.0&nbsp;</td>
+		<td>2016-01-06 10:37&nbsp;</td>
+		<td>7.0&nbsp;</td>
+		<td>2016-01-06 09:33&nbsp;</td>
+		<td>0.8&nbsp;</td>
+		<td>7.5&nbsp;</td>
+		<td>3.68&nbsp;</td>
+		<td>7.1&nbsp;</td>
+		<td>-1.2&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>7</td>
+		<td>766.9&nbsp;</td>
+		<td>3166.9&nbsp;</td>
+		<td>768.8&nbsp;</td>
+		<td>2016-01-07 09:25&nbsp;</td>
+		<td>765.9&nbsp;</td>
+		<td>2016-01-07 03:50&nbsp;</td>
+		<td>8.2&nbsp;</td>
+		<td>12.8&nbsp;</td>
+		<td>2016-01-07 12:56&nbsp;</td>
+		<td>4.4&nbsp;</td>
+		<td>2016-01-07 07:17&nbsp;</td>
+		<td>1.9&nbsp;</td>
+		<td>67&nbsp;</td>
+		<td>37&nbsp;</td>
+		<td>2016-01-07 06:34&nbsp;</td>
+		<td>1.7&nbsp;</td>
+		<td>150&nbsp;</td>
+		<td>9.4&nbsp;</td>
+		<td>170&nbsp;</td>
+		<td>2016-01-07 05:36&nbsp;</td>
+		<td>1.0&nbsp;</td>
+		<td>0.8&nbsp;</td>
+		<td>0.3&nbsp;</td>
+		<td>2016-01-07 23:40&nbsp;</td>
+		<td>1.0&nbsp;</td>
+		<td>2016-01-07 23:13&nbsp;</td>
+		<td>5.8&nbsp;</td>
+		<td>54.1&nbsp;</td>
+		<td>13.50&nbsp;</td>
+		<td>17.2&nbsp;</td>
+		<td>-0.3&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>8</td>
+		<td>765.4&nbsp;</td>
+		<td>3148.6&nbsp;</td>
+		<td>767.0&nbsp;</td>
+		<td>2016-01-08 08:58&nbsp;</td>
+		<td>764.1&nbsp;</td>
+		<td>2016-01-08 15:05&nbsp;</td>
+		<td>6.5&nbsp;</td>
+		<td>8.3&nbsp;</td>
+		<td>2016-01-08 11:38&nbsp;</td>
+		<td>4.7&nbsp;</td>
+		<td>2016-01-08 23:50&nbsp;</td>
+		<td>5.9&nbsp;</td>
+		<td>96&nbsp;</td>
+		<td>90&nbsp;</td>
+		<td>2016-01-08 00:04&nbsp;</td>
+		<td>0.9&nbsp;</td>
+		<td>10&nbsp;</td>
+		<td>7.6&nbsp;</td>
+		<td>150&nbsp;</td>
+		<td>2016-01-08 00:08&nbsp;</td>
+		<td>13.5&nbsp;</td>
+		<td>11.5&nbsp;</td>
+		<td>1.5&nbsp;</td>
+		<td>2016-01-08 02:15&nbsp;</td>
+		<td>3.5&nbsp;</td>
+		<td>2016-01-08 03:25&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>3.63&nbsp;</td>
+		<td>1.4&nbsp;</td>
+		<td>-1.4&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>9</td>
+		<td>766.4&nbsp;</td>
+		<td>3155.0&nbsp;</td>
+		<td>767.9&nbsp;</td>
+		<td>2016-01-09 09:39&nbsp;</td>
+		<td>764.7&nbsp;</td>
+		<td>2016-01-09 02:46&nbsp;</td>
+		<td>5.4&nbsp;</td>
+		<td>10.1&nbsp;</td>
+		<td>2016-01-09 11:34&nbsp;</td>
+		<td>2.0&nbsp;</td>
+		<td>2016-01-09 07:08&nbsp;</td>
+		<td>2.7&nbsp;</td>
+		<td>83&nbsp;</td>
+		<td>63&nbsp;</td>
+		<td>2016-01-09 23:27&nbsp;</td>
+		<td>1.3&nbsp;</td>
+		<td>180&nbsp;</td>
+		<td>5.5&nbsp;</td>
+		<td>140&nbsp;</td>
+		<td>2016-01-09 06:49&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>4.7&nbsp;</td>
+		<td>43.8&nbsp;</td>
+		<td>11.48&nbsp;</td>
+		<td>19.7&nbsp;</td>
+		<td>0.6&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>10</td>
+		<td>766.2&nbsp;</td>
+		<td>3156.3&nbsp;</td>
+		<td>767.8&nbsp;</td>
+		<td>2016-01-10 10:10&nbsp;</td>
+		<td>764.9&nbsp;</td>
+		<td>2016-01-10 15:00&nbsp;</td>
+		<td>7.6&nbsp;</td>
+		<td>11.7&nbsp;</td>
+		<td>2016-01-10 12:52&nbsp;</td>
+		<td>2.5&nbsp;</td>
+		<td>2016-01-10 00:03&nbsp;</td>
+		<td>2.9&nbsp;</td>
+		<td>72&nbsp;</td>
+		<td>52&nbsp;</td>
+		<td>2016-01-10 00:38&nbsp;</td>
+		<td>1.6&nbsp;</td>
+		<td>70&nbsp;</td>
+		<td>8.8&nbsp;</td>
+		<td>140&nbsp;</td>
+		<td>2016-01-10 04:07&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>6.1&nbsp;</td>
+		<td>56.8&nbsp;</td>
+		<td>13.20&nbsp;</td>
+		<td>22.5&nbsp;</td>
+		<td>-1.2&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>11</td>
+		<td>764.6&nbsp;</td>
+		<td>3141.6&nbsp;</td>
+		<td>766.0&nbsp;</td>
+		<td>2016-01-11 00:41&nbsp;</td>
+		<td>763.3&nbsp;</td>
+		<td>2016-01-11 15:18&nbsp;</td>
+		<td>7.8&nbsp;</td>
+		<td>9.4&nbsp;</td>
+		<td>2016-01-11 05:27&nbsp;</td>
+		<td>6.7&nbsp;</td>
+		<td>2016-01-11 02:25&nbsp;</td>
+		<td>6.0&nbsp;</td>
+		<td>89&nbsp;</td>
+		<td>63&nbsp;</td>
+		<td>2016-01-11 05:47&nbsp;</td>
+		<td>1.9&nbsp;</td>
+		<td>300&nbsp;</td>
+		<td>11.9&nbsp;</td>
+		<td>280&nbsp;</td>
+		<td>2016-01-11 12:43&nbsp;</td>
+		<td>36.1&nbsp;</td>
+		<td>13.8&nbsp;</td>
+		<td>2.5&nbsp;</td>
+		<td>2016-01-11 10:51&nbsp;</td>
+		<td>10.5&nbsp;</td>
+		<td>2016-01-11 10:47&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.49&nbsp;</td>
+		<td>6.7&nbsp;</td>
+		<td>-0.1&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>12</td>
+		<td>765.3&nbsp;</td>
+		<td>3149.8&nbsp;</td>
+		<td>767.0&nbsp;</td>
+		<td>2016-01-12 09:17&nbsp;</td>
+		<td>763.9&nbsp;</td>
+		<td>2016-01-12 14:56&nbsp;</td>
+		<td>8.1&nbsp;</td>
+		<td>12.7&nbsp;</td>
+		<td>2016-01-12 09:45&nbsp;</td>
+		<td>5.4&nbsp;</td>
+		<td>2016-01-12 20:54&nbsp;</td>
+		<td>5.9&nbsp;</td>
+		<td>86&nbsp;</td>
+		<td>73&nbsp;</td>
+		<td>2016-01-12 10:01&nbsp;</td>
+		<td>1.2&nbsp;</td>
+		<td>310&nbsp;</td>
+		<td>8.5&nbsp;</td>
+		<td>150&nbsp;</td>
+		<td>2016-01-12 17:33&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>3.6&nbsp;</td>
+		<td>33.5&nbsp;</td>
+		<td>11.34&nbsp;</td>
+		<td>7.4&nbsp;</td>
+		<td>1.9&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>13</td>
+		<td>764.9&nbsp;</td>
+		<td>3142.2&nbsp;</td>
+		<td>766.3&nbsp;</td>
+		<td>2016-01-13 09:45&nbsp;</td>
+		<td>763.4&nbsp;</td>
+		<td>2016-01-13 14:59&nbsp;</td>
+		<td>6.6&nbsp;</td>
+		<td>10.4&nbsp;</td>
+		<td>2016-01-13 13:27&nbsp;</td>
+		<td>4.6&nbsp;</td>
+		<td>2016-01-13 21:09&nbsp;</td>
+		<td>2.3&nbsp;</td>
+		<td>74&nbsp;</td>
+		<td>55&nbsp;</td>
+		<td>2016-01-13 05:38&nbsp;</td>
+		<td>1.7&nbsp;</td>
+		<td>120&nbsp;</td>
+		<td>9.9&nbsp;</td>
+		<td>280&nbsp;</td>
+		<td>2016-01-13 23:14&nbsp;</td>
+		<td>3.0&nbsp;</td>
+		<td>5.7&nbsp;</td>
+		<td>0.5&nbsp;</td>
+		<td>2016-01-13 19:30&nbsp;</td>
+		<td>1.3&nbsp;</td>
+		<td>2016-01-13 19:30&nbsp;</td>
+		<td>0.9&nbsp;</td>
+		<td>8.4&nbsp;</td>
+		<td>5.62&nbsp;</td>
+		<td>14.8&nbsp;</td>
+		<td>-0.1&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>14</td>
+		<td>764.4&nbsp;</td>
+		<td>3134.6&nbsp;</td>
+		<td>765.8&nbsp;</td>
+		<td>2016-01-14 09:50&nbsp;</td>
+		<td>762.9&nbsp;</td>
+		<td>2016-01-14 16:27&nbsp;</td>
+		<td>5.7&nbsp;</td>
+		<td>8.4&nbsp;</td>
+		<td>2016-01-14 09:47&nbsp;</td>
+		<td>3.2&nbsp;</td>
+		<td>2016-01-14 07:34&nbsp;</td>
+		<td>-3.2&nbsp;</td>
+		<td>53&nbsp;</td>
+		<td>40&nbsp;</td>
+		<td>2016-01-14 02:10&nbsp;</td>
+		<td>1.7&nbsp;</td>
+		<td>280&nbsp;</td>
+		<td>12.0&nbsp;</td>
+		<td>340&nbsp;</td>
+		<td>2016-01-14 16:07&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>4.7&nbsp;</td>
+		<td>43.6&nbsp;</td>
+		<td>8.38&nbsp;</td>
+		<td>22.5&nbsp;</td>
+		<td>-0.6&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>15</td>
+		<td>762.5&nbsp;</td>
+		<td>3112.6&nbsp;</td>
+		<td>764.3&nbsp;</td>
+		<td>2016-01-15 00:02&nbsp;</td>
+		<td>761.2&nbsp;</td>
+		<td>2016-01-15 15:00&nbsp;</td>
+		<td>5.1&nbsp;</td>
+		<td>6.9&nbsp;</td>
+		<td>2016-01-15 00:17&nbsp;</td>
+		<td>2.8&nbsp;</td>
+		<td>2016-01-15 04:50&nbsp;</td>
+		<td>2.3&nbsp;</td>
+		<td>84&nbsp;</td>
+		<td>46&nbsp;</td>
+		<td>2016-01-15 00:17&nbsp;</td>
+		<td>1.4&nbsp;</td>
+		<td>130&nbsp;</td>
+		<td>7.3&nbsp;</td>
+		<td>140&nbsp;</td>
+		<td>2016-01-15 08:11&nbsp;</td>
+		<td>20.5&nbsp;</td>
+		<td>15.0&nbsp;</td>
+		<td>1.0&nbsp;</td>
+		<td>2016-01-15 11:28&nbsp;</td>
+		<td>4.5&nbsp;</td>
+		<td>2016-01-15 13:31&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.00&nbsp;</td>
+		<td>5.8&nbsp;</td>
+		<td>-0.1&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>16</td>
+		<td>763.2&nbsp;</td>
+		<td>3124.0&nbsp;</td>
+		<td>765.0&nbsp;</td>
+		<td>2016-01-16 08:55&nbsp;</td>
+		<td>762.1&nbsp;</td>
+		<td>2016-01-16 15:19&nbsp;</td>
+		<td>7.9&nbsp;</td>
+		<td>13.4&nbsp;</td>
+		<td>2016-01-16 11:06&nbsp;</td>
+		<td>3.7&nbsp;</td>
+		<td>2016-01-16 05:17&nbsp;</td>
+		<td>5.4&nbsp;</td>
+		<td>85&nbsp;</td>
+		<td>60&nbsp;</td>
+		<td>2016-01-16 11:00&nbsp;</td>
+		<td>1.6&nbsp;</td>
+		<td>150&nbsp;</td>
+		<td>7.9&nbsp;</td>
+		<td>270&nbsp;</td>
+		<td>2016-01-16 00:10&nbsp;</td>
+		<td>10.5&nbsp;</td>
+		<td>4.0&nbsp;</td>
+		<td>2.0&nbsp;</td>
+		<td>2016-01-16 01:26&nbsp;</td>
+		<td>6.0&nbsp;</td>
+		<td>2016-01-16 01:22&nbsp;</td>
+		<td>4.0&nbsp;</td>
+		<td>37.0&nbsp;</td>
+		<td>9.66&nbsp;</td>
+		<td>15.3&nbsp;</td>
+		<td>-0.1&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>17</td>
+		<td>760.8&nbsp;</td>
+		<td>3102.2&nbsp;</td>
+		<td>762.9&nbsp;</td>
+		<td>2016-01-17 22:17&nbsp;</td>
+		<td>758.9&nbsp;</td>
+		<td>2016-01-17 14:04&nbsp;</td>
+		<td>8.1&nbsp;</td>
+		<td>10.1&nbsp;</td>
+		<td>2016-01-17 10:38&nbsp;</td>
+		<td>4.4&nbsp;</td>
+		<td>2016-01-17 23:37&nbsp;</td>
+		<td>7.4&nbsp;</td>
+		<td>95&nbsp;</td>
+		<td>83&nbsp;</td>
+		<td>2016-01-17 00:33&nbsp;</td>
+		<td>2.1&nbsp;</td>
+		<td>20&nbsp;</td>
+		<td>12.8&nbsp;</td>
+		<td>260&nbsp;</td>
+		<td>2016-01-17 12:21&nbsp;</td>
+		<td>36.0&nbsp;</td>
+		<td>17.1&nbsp;</td>
+		<td>3.0&nbsp;</td>
+		<td>2016-01-17 14:24&nbsp;</td>
+		<td>6.0&nbsp;</td>
+		<td>2016-01-17 15:32&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.60&nbsp;</td>
+		<td>0.6&nbsp;</td>
+		<td>-1.7&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>18</td>
+		<td>762.0&nbsp;</td>
+		<td>3108.2&nbsp;</td>
+		<td>764.2&nbsp;</td>
+		<td>2016-01-18 21:18&nbsp;</td>
+		<td>759.7&nbsp;</td>
+		<td>2016-01-18 03:36&nbsp;</td>
+		<td>4.9&nbsp;</td>
+		<td>10.1&nbsp;</td>
+		<td>2016-01-18 09:57&nbsp;</td>
+		<td>2.0&nbsp;</td>
+		<td>2016-01-18 19:41&nbsp;</td>
+		<td>1.9&nbsp;</td>
+		<td>81&nbsp;</td>
+		<td>58&nbsp;</td>
+		<td>2016-01-18 23:17&nbsp;</td>
+		<td>1.2&nbsp;</td>
+		<td>240&nbsp;</td>
+		<td>6.8&nbsp;</td>
+		<td>130&nbsp;</td>
+		<td>2016-01-18 21:11&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>3.5&nbsp;</td>
+		<td>32.3&nbsp;</td>
+		<td>11.81&nbsp;</td>
+		<td>6.5&nbsp;</td>
+		<td>1.2&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>19</td>
+		<td>765.7&nbsp;</td>
+		<td>3145.3&nbsp;</td>
+		<td>767.6&nbsp;</td>
+		<td>2016-01-19 21:34&nbsp;</td>
+		<td>763.2&nbsp;</td>
+		<td>2016-01-19 02:44&nbsp;</td>
+		<td>5.1&nbsp;</td>
+		<td>8.3&nbsp;</td>
+		<td>2016-01-19 14:45&nbsp;</td>
+		<td>2.0&nbsp;</td>
+		<td>2016-01-19 00:11&nbsp;</td>
+		<td>1.2&nbsp;</td>
+		<td>76&nbsp;</td>
+		<td>64&nbsp;</td>
+		<td>2016-01-19 23:57&nbsp;</td>
+		<td>1.5&nbsp;</td>
+		<td>30&nbsp;</td>
+		<td>6.8&nbsp;</td>
+		<td>140&nbsp;</td>
+		<td>2016-01-19 21:57&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1.7&nbsp;</td>
+		<td>15.7&nbsp;</td>
+		<td>7.52&nbsp;</td>
+		<td>12.2&nbsp;</td>
+		<td>1.1&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>20</td>
+		<td>767.6&nbsp;</td>
+		<td>3171.7&nbsp;</td>
+		<td>769.6&nbsp;</td>
+		<td>2016-01-20 10:07&nbsp;</td>
+		<td>766.0&nbsp;</td>
+		<td>2016-01-20 16:45&nbsp;</td>
+		<td>8.1&nbsp;</td>
+		<td>12.6&nbsp;</td>
+		<td>2016-01-20 13:59&nbsp;</td>
+		<td>4.2&nbsp;</td>
+		<td>2016-01-20 03:00&nbsp;</td>
+		<td>3.0&nbsp;</td>
+		<td>71&nbsp;</td>
+		<td>57&nbsp;</td>
+		<td>2016-01-20 12:53&nbsp;</td>
+		<td>1.6&nbsp;</td>
+		<td>350&nbsp;</td>
+		<td>9.1&nbsp;</td>
+		<td>250&nbsp;</td>
+		<td>2016-01-20 23:56&nbsp;</td>
+		<td>2.8&nbsp;</td>
+		<td>2.4&nbsp;</td>
+		<td>0.8&nbsp;</td>
+		<td>2016-01-20 23:40&nbsp;</td>
+		<td>2.4&nbsp;</td>
+		<td>2016-01-20 22:58&nbsp;</td>
+		<td>3.7&nbsp;</td>
+		<td>34.1&nbsp;</td>
+		<td>11.10&nbsp;</td>
+		<td>18.8&nbsp;</td>
+		<td>-0.4&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>21</td>
+		<td>766.3&nbsp;</td>
+		<td>3163.4&nbsp;</td>
+		<td>767.6&nbsp;</td>
+		<td>2016-01-21 00:08&nbsp;</td>
+		<td>765.0&nbsp;</td>
+		<td>2016-01-21 16:42&nbsp;</td>
+		<td>8.8&nbsp;</td>
+		<td>11.3&nbsp;</td>
+		<td>2016-01-21 14:59&nbsp;</td>
+		<td>6.0&nbsp;</td>
+		<td>2016-01-21 22:02&nbsp;</td>
+		<td>7.3&nbsp;</td>
+		<td>90&nbsp;</td>
+		<td>80&nbsp;</td>
+		<td>2016-01-21 03:58&nbsp;</td>
+		<td>1.9&nbsp;</td>
+		<td>310&nbsp;</td>
+		<td>10.8&nbsp;</td>
+		<td>260&nbsp;</td>
+		<td>2016-01-21 11:51&nbsp;</td>
+		<td>3.4&nbsp;</td>
+		<td>3.5&nbsp;</td>
+		<td>1.0&nbsp;</td>
+		<td>2016-01-21 09:44&nbsp;</td>
+		<td>2.8&nbsp;</td>
+		<td>2016-01-21 09:30&nbsp;</td>
+		<td>1.6&nbsp;</td>
+		<td>14.7&nbsp;</td>
+		<td>2.68&nbsp;</td>
+		<td>11.3&nbsp;</td>
+		<td>-0.7&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>22</td>
+		<td>765.8&nbsp;</td>
+		<td>3155.4&nbsp;</td>
+		<td>767.4&nbsp;</td>
+		<td>2016-01-22 10:35&nbsp;</td>
+		<td>764.3&nbsp;</td>
+		<td>2016-01-22 15:09&nbsp;</td>
+		<td>8.7&nbsp;</td>
+		<td>10.0&nbsp;</td>
+		<td>2016-01-22 21:02&nbsp;</td>
+		<td>6.6&nbsp;</td>
+		<td>2016-01-22 06:57&nbsp;</td>
+		<td>7.3&nbsp;</td>
+		<td>91&nbsp;</td>
+		<td>81&nbsp;</td>
+		<td>2016-01-22 16:10&nbsp;</td>
+		<td>2.1&nbsp;</td>
+		<td>250&nbsp;</td>
+		<td>9.2&nbsp;</td>
+		<td>260&nbsp;</td>
+		<td>2016-01-22 22:59&nbsp;</td>
+		<td>4.5&nbsp;</td>
+		<td>2.5&nbsp;</td>
+		<td>1.0&nbsp;</td>
+		<td>2016-01-22 21:42&nbsp;</td>
+		<td>3.0&nbsp;</td>
+		<td>2016-01-22 21:30&nbsp;</td>
+		<td>0.5&nbsp;</td>
+		<td>4.6&nbsp;</td>
+		<td>3.00&nbsp;</td>
+		<td>19.8&nbsp;</td>
+		<td>-0.3&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>23</td>
+		<td>765.7&nbsp;</td>
+		<td>3155.7&nbsp;</td>
+		<td>767.0&nbsp;</td>
+		<td>2016-01-23 21:57&nbsp;</td>
+		<td>764.3&nbsp;</td>
+		<td>2016-01-23 15:33&nbsp;</td>
+		<td>8.1&nbsp;</td>
+		<td>10.1&nbsp;</td>
+		<td>2016-01-23 00:33&nbsp;</td>
+		<td>3.9&nbsp;</td>
+		<td>2016-01-23 22:44&nbsp;</td>
+		<td>7.7&nbsp;</td>
+		<td>97&nbsp;</td>
+		<td>93&nbsp;</td>
+		<td>2016-01-23 22:20&nbsp;</td>
+		<td>2.6&nbsp;</td>
+		<td>270&nbsp;</td>
+		<td>11.4&nbsp;</td>
+		<td>280&nbsp;</td>
+		<td>2016-01-23 13:48&nbsp;</td>
+		<td>48.0&nbsp;</td>
+		<td>24.0&nbsp;</td>
+		<td>2.5&nbsp;</td>
+		<td>2016-01-23 00:56&nbsp;</td>
+		<td>8.5&nbsp;</td>
+		<td>2016-01-23 00:37&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.02&nbsp;</td>
+		<td>0.2&nbsp;</td>
+		<td>-0.1&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>24</td>
+		<td>765.9&nbsp;</td>
+		<td>3142.1&nbsp;</td>
+		<td>767.8&nbsp;</td>
+		<td>2016-01-24 21:19&nbsp;</td>
+		<td>763.8&nbsp;</td>
+		<td>2016-01-24 04:45&nbsp;</td>
+		<td>1.1&nbsp;</td>
+		<td>4.4&nbsp;</td>
+		<td>2016-01-24 00:01&nbsp;</td>
+		<td>0.2&nbsp;</td>
+		<td>2016-01-24 19:42&nbsp;</td>
+		<td>0.7&nbsp;</td>
+		<td>98&nbsp;</td>
+		<td>90&nbsp;</td>
+		<td>2016-01-24 03:50&nbsp;</td>
+		<td>1.3&nbsp;</td>
+		<td>270&nbsp;</td>
+		<td>6.8&nbsp;</td>
+		<td>240&nbsp;</td>
+		<td>2016-01-24 02:52&nbsp;</td>
+		<td>18.0&nbsp;</td>
+		<td>23.4&nbsp;</td>
+		<td>0.6&nbsp;</td>
+		<td>2016-01-24 02:52&nbsp;</td>
+		<td>3.5&nbsp;</td>
+		<td>2016-01-24 02:49&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>1.04&nbsp;</td>
+		<td>0.2&nbsp;</td>
+		<td>X&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>25</td>
+		<td>767.7&nbsp;</td>
+		<td>3155.4&nbsp;</td>
+		<td>769.0&nbsp;</td>
+		<td>2016-01-25 10:05&nbsp;</td>
+		<td>765.9&nbsp;</td>
+		<td>2016-01-25 02:56&nbsp;</td>
+		<td>1.0&nbsp;</td>
+		<td>2.2&nbsp;</td>
+		<td>2016-01-25 17:02&nbsp;</td>
+		<td>-0.1&nbsp;</td>
+		<td>2016-01-25 00:53&nbsp;</td>
+		<td>0.5&nbsp;</td>
+		<td>97&nbsp;</td>
+		<td>90&nbsp;</td>
+		<td>2016-01-25 22:26&nbsp;</td>
+		<td>1.7&nbsp;</td>
+		<td>260&nbsp;</td>
+		<td>8.4&nbsp;</td>
+		<td>280&nbsp;</td>
+		<td>2016-01-25 12:41&nbsp;</td>
+		<td>T&nbsp;</td>
+		<td>1.2&nbsp;</td>
+		<td>T&nbsp;</td>
+		<td>2016-01-25 07:10&nbsp;</td>
+		<td>T&nbsp;</td>
+		<td>2016-01-25 07:10&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.75&nbsp;</td>
+		<td>2.3&nbsp;</td>
+		<td>0.1&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>26</td>
+		<td>768.3&nbsp;</td>
+		<td>3169.8&nbsp;</td>
+		<td>769.9&nbsp;</td>
+		<td>2016-01-26 09:35&nbsp;</td>
+		<td>767.1&nbsp;</td>
+		<td>2016-01-26 15:36&nbsp;</td>
+		<td>5.5&nbsp;</td>
+		<td>10.7&nbsp;</td>
+		<td>2016-01-26 12:29&nbsp;</td>
+		<td>-0.3&nbsp;</td>
+		<td>2016-01-26 04:27&nbsp;</td>
+		<td>0.8&nbsp;</td>
+		<td>73&nbsp;</td>
+		<td>42&nbsp;</td>
+		<td>2016-01-26 18:52&nbsp;</td>
+		<td>1.5&nbsp;</td>
+		<td>170&nbsp;</td>
+		<td>5.4&nbsp;</td>
+		<td>160&nbsp;</td>
+		<td>2016-01-26 18:49&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>9.7&nbsp;</td>
+		<td>88.7&nbsp;</td>
+		<td>17.41&nbsp;</td>
+		<td>23.3&nbsp;</td>
+		<td>0.7&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>27</td>
+		<td>769.4&nbsp;</td>
+		<td>3195.4&nbsp;</td>
+		<td>771.4&nbsp;</td>
+		<td>2016-01-27 21:32&nbsp;</td>
+		<td>767.6&nbsp;</td>
+		<td>2016-01-27 04:19&nbsp;</td>
+		<td>9.3&nbsp;</td>
+		<td>12.0&nbsp;</td>
+		<td>2016-01-27 15:29&nbsp;</td>
+		<td>4.9&nbsp;</td>
+		<td>2016-01-27 01:01&nbsp;</td>
+		<td>3.9&nbsp;</td>
+		<td>70&nbsp;</td>
+		<td>45&nbsp;</td>
+		<td>2016-01-27 01:33&nbsp;</td>
+		<td>1.4&nbsp;</td>
+		<td>160&nbsp;</td>
+		<td>7.6&nbsp;</td>
+		<td>140&nbsp;</td>
+		<td>2016-01-27 03:40&nbsp;</td>
+		<td>1.5&nbsp;</td>
+		<td>4.0&nbsp;</td>
+		<td>0.4&nbsp;</td>
+		<td>2016-01-27 22:02&nbsp;</td>
+		<td>1.0&nbsp;</td>
+		<td>2016-01-27 21:40&nbsp;</td>
+		<td>0.2&nbsp;</td>
+		<td>1.8&nbsp;</td>
+		<td>4.48&nbsp;</td>
+		<td>14.7&nbsp;</td>
+		<td>-0.9&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>28</td>
+		<td>768.3&nbsp;</td>
+		<td>3187.8&nbsp;</td>
+		<td>770.6&nbsp;</td>
+		<td>2016-01-28 00:17&nbsp;</td>
+		<td>766.1&nbsp;</td>
+		<td>2016-01-28 14:40&nbsp;</td>
+		<td>10.7&nbsp;</td>
+		<td>15.4&nbsp;</td>
+		<td>2016-01-28 12:30&nbsp;</td>
+		<td>8.7&nbsp;</td>
+		<td>2016-01-28 08:41&nbsp;</td>
+		<td>6.7&nbsp;</td>
+		<td>78&nbsp;</td>
+		<td>46&nbsp;</td>
+		<td>2016-01-28 21:11&nbsp;</td>
+		<td>1.6&nbsp;</td>
+		<td>150&nbsp;</td>
+		<td>14.7&nbsp;</td>
+		<td>140&nbsp;</td>
+		<td>2016-01-28 08:24&nbsp;</td>
+		<td>13.6&nbsp;</td>
+		<td>10.4&nbsp;</td>
+		<td>0.8&nbsp;</td>
+		<td>2016-01-28 05:22&nbsp;</td>
+		<td>3.2&nbsp;</td>
+		<td>2016-01-28 05:10&nbsp;</td>
+		<td>1.3&nbsp;</td>
+		<td>11.9&nbsp;</td>
+		<td>7.23&nbsp;</td>
+		<td>13.5&nbsp;</td>
+		<td>-1.1&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>29</td>
+		<td>766.7&nbsp;</td>
+		<td>3170.6&nbsp;</td>
+		<td>767.4&nbsp;</td>
+		<td>2016-01-29 00:32&nbsp;</td>
+		<td>765.8&nbsp;</td>
+		<td>2016-01-29 15:10&nbsp;</td>
+		<td>9.9&nbsp;</td>
+		<td>11.9&nbsp;</td>
+		<td>2016-01-29 00:17&nbsp;</td>
+		<td>7.6&nbsp;</td>
+		<td>2016-01-29 22:52&nbsp;</td>
+		<td>7.2&nbsp;</td>
+		<td>85&nbsp;</td>
+		<td>51&nbsp;</td>
+		<td>2016-01-29 00:17&nbsp;</td>
+		<td>1.7&nbsp;</td>
+		<td>30&nbsp;</td>
+		<td>10.8&nbsp;</td>
+		<td>160&nbsp;</td>
+		<td>2016-01-29 10:40&nbsp;</td>
+		<td>54.0&nbsp;</td>
+		<td>15.0&nbsp;</td>
+		<td>6.0&nbsp;</td>
+		<td>2016-01-29 12:28&nbsp;</td>
+		<td>16.5&nbsp;</td>
+		<td>2016-01-29 12:26&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.60&nbsp;</td>
+		<td>7.6&nbsp;</td>
+		<td>X&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>30</td>
+		<td>767.2&nbsp;</td>
+		<td>3172.2&nbsp;</td>
+		<td>768.4&nbsp;</td>
+		<td>2016-01-30 20:11&nbsp;</td>
+		<td>765.7&nbsp;</td>
+		<td>2016-01-30 02:24&nbsp;</td>
+		<td>8.5&nbsp;</td>
+		<td>11.6&nbsp;</td>
+		<td>2016-01-30 13:58&nbsp;</td>
+		<td>4.9&nbsp;</td>
+		<td>2016-01-30 23:08&nbsp;</td>
+		<td>6.2&nbsp;</td>
+		<td>86&nbsp;</td>
+		<td>56&nbsp;</td>
+		<td>2016-01-30 22:38&nbsp;</td>
+		<td>1.7&nbsp;</td>
+		<td>260&nbsp;</td>
+		<td>11.4&nbsp;</td>
+		<td>330&nbsp;</td>
+		<td>2016-01-30 04:35&nbsp;</td>
+		<td>29.0&nbsp;</td>
+		<td>12.6&nbsp;</td>
+		<td>5.0&nbsp;</td>
+		<td>2016-01-30 08:13&nbsp;</td>
+		<td>18.5&nbsp;</td>
+		<td>2016-01-30 08:08&nbsp;</td>
+		<td>0.1&nbsp;</td>
+		<td>0.9&nbsp;</td>
+		<td>4.73&nbsp;</td>
+		<td>6.0&nbsp;</td>
+		<td>-0.9&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>31</td>
+		<td>767.5&nbsp;</td>
+		<td>3176.4&nbsp;</td>
+		<td>769.3&nbsp;</td>
+		<td>2016-01-31 10:05&nbsp;</td>
+		<td>766.0&nbsp;</td>
+		<td>2016-01-31 15:42&nbsp;</td>
+		<td>10.3&nbsp;</td>
+		<td>15.1&nbsp;</td>
+		<td>2016-01-31 13:00&nbsp;</td>
+		<td>5.6&nbsp;</td>
+		<td>2016-01-31 01:03&nbsp;</td>
+		<td>1.1&nbsp;</td>
+		<td>53&nbsp;</td>
+		<td>44&nbsp;</td>
+		<td>2016-01-31 05:44&nbsp;</td>
+		<td>1.4&nbsp;</td>
+		<td>230&nbsp;</td>
+		<td>6.5&nbsp;</td>
+		<td>260&nbsp;</td>
+		<td>2016-01-31 13:22&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>9.8&nbsp;</td>
+		<td>88.9&nbsp;</td>
+		<td>18.25&nbsp;</td>
+		<td>20.0&nbsp;</td>
+		<td>1.9&nbsp;</td>
+	 </tr>
+	 		
+	</tbody>
+	</table>
+	<label class="imp"></label>
+</div>
+</body>
+</html>

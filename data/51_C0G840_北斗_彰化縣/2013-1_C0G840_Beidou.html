@@ -1,0 +1,1221 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link href="css/tablecss.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery-1.11.3.js"></script> 
+
+ <script type="text/javascript">
+ var month_url="MonthDataController.do?command=viewMain";
+     
+$(function() {
+	var nexArr = '2013-02'.split("-");
+	var preArr = '2012-12'.split("-");
+	var now = new Date();
+	if(new Date(nexArr[0],nexArr[1]-1,1) >= new Date(now.getFullYear(), now.getMonth()+1, 1))
+		$("#nexItem").css("display","none");
+	if(new Date(preArr[0],preArr[1]-1,1) < new Date(now.getFullYear()-3, now.getMonth()+1, 1))
+		$("#preItem").css("display","none");
+	
+	
+	$("#preItem").click(function (event){
+		//window.location.href =month_url+"&station="+$("#stno").val()+"&datepicker="+$("#preDate").val();
+		window.location.href =encodeURI(month_url+"&station="+$("#stno").val()+"&stname="+encodeURI($("#stnCname").val())+"&datepicker="+$("#preDate").val());
+    });
+	 
+	$("#nexItem").click(function (event){
+		//window.location.href =month_url+"&station="+$("#stno").val()+"&datepicker="+$("#nexDate").val();
+		window.location.href =encodeURI(month_url+"&station="+$("#stno").val()+"&stname="+encodeURI($("#stnCname").val())+"&datepicker="+$("#nexDate").val());
+	});	 
+});
+ </script>
+</head>
+<body>
+<div id="hea_t" style="position:fixed;top:0px;">
+<table border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td>測站:C0G840_Beidou&nbsp;&nbsp;</td>
+<td><a id="preItem" href="#"><input type="image" src="images/buttons_l.png"   width="24" height="24"></a></td>
+<td>觀測時間:2013-01</td>
+<td><a id="nexItem" href="#"><input type="image" src="images/buttons_r.png"   width="24" height="24"></a></td>
+</tr>
+</table>
+	<input type="hidden"  value="C0G840" id="stno">
+	<input type="hidden"  value="2012-12" id="preDate">
+	<input type="hidden"  value="2013-02" id="nexDate">
+	<input type="hidden"  value="Beidou" id="stnCname">
+</div>
+<div class="CSSTableGenerator" style="position:relative;top:30px">
+	<table id="MyTable" border="0" cellpadding="10" cellspacing="0">
+	<tbody>
+	<tr class="first_tr">
+		<th width="10px">&nbsp;</th>
+		<th colspan="6">press</th>
+		<th colspan="5">temperature</th>
+		<th>Dew Point</th>
+		<th colspan="3">RH</th>
+		<th colspan="5">WS/WD</th>
+		<th colspan="6">Precp</th>
+		<th colspan="3">SunShine</th>
+		<th>visibility</th>
+		<th>Evaperation</th>
+	 </tr>
+	 <tr class="second_tr">
+		<th>觀測時間<br>(LST)<br>ObsTime</th>
+		<th>測站氣壓<br>(hPa)<br>StnPres</th>
+		<th>海平面氣壓<br>(hPa)<br>SeaPres</th>
+		<th>測站最高氣壓<br>(hPa)<br>StnPresMax</th>
+		<th>測站最高氣壓時間<br>(LST)<br>StnPresMaxTime</th>
+		<th>測站最低氣壓<br>(hPa)<br>StnPresMin</th>
+		<th>測站最低氣壓時間<br>(LST)<br>StnPresMinTime</th>
+		<th>氣溫<br>(℃)<br>Temperature</th>
+		<th>最高氣溫<br>(℃)<br>T Max</th>
+		<th>最高氣溫時間<br>(LST)<br>T Max Time</th>
+		<th>最低氣溫<br>(℃)<br>T Min</th>
+		<th>最低氣溫時間<br>(LST)<br>T Min Time</th>
+		<th>露點溫度<br>(℃)<br>Td dew point</th>
+		<th>相對溼度<br>(%)<br>RH</th>
+		<th>最小相對溼度<br>(%)<br>RHMin</th>
+		<th>最小相對溼度時間<br>(LST)<br>RHMinTime</th>
+		<th>風速<br>(m/s)<br>WS   </th>
+		<th>風向<br>(最多風向)<br>(360degree)<br>WD   </th>
+		<th>最大陣風<br>(m/s)<br>WSGust</th>
+		<th>最大陣風風向<br>(360degree)<br>WDGust</th>
+		<th>最大陣風風速時間<br>(LST)<br>WGustTime</th>
+		<th>降水量<br>(mm)<br>Precp</th>
+		<th>降水時數<br>(hr)<br>PrecpHour </th>
+		<th>10分鐘最大降水量<br>(mm)<br>PrecpMax10</th>
+		<th>10分鐘最大降水起始時間<br>(LST)<br>PrecpMax10Time</th>
+		<th>一小時最大降水量<br>(mm)<br>PrecpHrMax</th>
+		<th>一小時最大降水量起始時間<br>(LST)<br>PrecpHrMaxTime</th>
+		<th>日照時數<br>(hr)<br>SunShine</th>
+		<th>日照率<br>(%)<br>SunShineRate</th>
+		<th>全天空日射量<br>(MJ/㎡)<br>GloblRad</th>
+		<th>能見度<br>(km)<br>VisbMean</th>
+		<th>A型蒸發量<br>(mm)<br>EvapA</th>		
+	 </tr>
+	 
+	 
+	 
+	 <tr>
+		<td nowrap>1</td>
+		<td>1015.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1017.5&nbsp;</td>
+		<td>2013-01-01 09:31&nbsp;</td>
+		<td>1014.1&nbsp;</td>
+		<td>2013-01-01 14:20&nbsp;</td>
+		<td>13.5&nbsp;</td>
+		<td>18.4&nbsp;</td>
+		<td>2013-01-01 14:46&nbsp;</td>
+		<td>8.6&nbsp;</td>
+		<td>2013-01-01 02:37&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>90&nbsp;</td>
+		<td>66&nbsp;</td>
+		<td>2013-01-01 14:40&nbsp;</td>
+		<td>1.2&nbsp;</td>
+		<td>3&nbsp;</td>
+		<td>3.8&nbsp;</td>
+		<td>19&nbsp;</td>
+		<td>2013-01-01 15:08&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>2</td>
+		<td>1015.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1017.4&nbsp;</td>
+		<td>2013-01-02 10:08&nbsp;</td>
+		<td>1013.8&nbsp;</td>
+		<td>2013-01-02 02:49&nbsp;</td>
+		<td>17.3&nbsp;</td>
+		<td>22.6&nbsp;</td>
+		<td>2013-01-02 15:16&nbsp;</td>
+		<td>13.5&nbsp;</td>
+		<td>2013-01-02 03:19&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>95&nbsp;</td>
+		<td>75&nbsp;</td>
+		<td>2013-01-02 15:03&nbsp;</td>
+		<td>2.5&nbsp;</td>
+		<td>5&nbsp;</td>
+		<td>8.4&nbsp;</td>
+		<td>1&nbsp;</td>
+		<td>2013-01-02 16:35&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>3</td>
+		<td>1016.9&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1018.1&nbsp;</td>
+		<td>2013-01-03 06:51&nbsp;</td>
+		<td>1015.7&nbsp;</td>
+		<td>2013-01-03 05:31&nbsp;</td>
+		<td>15.7&nbsp;</td>
+		<td>18.6&nbsp;</td>
+		<td>2013-01-03 10:36&nbsp;</td>
+		<td>13.3&nbsp;</td>
+		<td>2013-01-03 23:47&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>97&nbsp;</td>
+		<td>90&nbsp;</td>
+		<td>2013-01-03 16:01&nbsp;</td>
+		<td>3.3&nbsp;</td>
+		<td>359&nbsp;</td>
+		<td>9.2&nbsp;</td>
+		<td>1&nbsp;</td>
+		<td>2013-01-03 01:45&nbsp;</td>
+		<td>3.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>4</td>
+		<td>1014.4&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1017.4&nbsp;</td>
+		<td>2013-01-04 01:18&nbsp;</td>
+		<td>1011.8&nbsp;</td>
+		<td>2013-01-04 16:57&nbsp;</td>
+		<td>16.4&nbsp;</td>
+		<td>21.2&nbsp;</td>
+		<td>2013-01-04 13:10&nbsp;</td>
+		<td>13.0&nbsp;</td>
+		<td>2013-01-04 02:06&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>93&nbsp;</td>
+		<td>71&nbsp;</td>
+		<td>2013-01-04 13:17&nbsp;</td>
+		<td>2.8&nbsp;</td>
+		<td>2&nbsp;</td>
+		<td>7.3&nbsp;</td>
+		<td>10&nbsp;</td>
+		<td>2013-01-04 15:23&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>5</td>
+		<td>1012.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1014.3&nbsp;</td>
+		<td>2013-01-05 09:35&nbsp;</td>
+		<td>1010.6&nbsp;</td>
+		<td>2013-01-05 13:47&nbsp;</td>
+		<td>16.9&nbsp;</td>
+		<td>22.4&nbsp;</td>
+		<td>2013-01-05 12:05&nbsp;</td>
+		<td>14.1&nbsp;</td>
+		<td>2013-01-05 23:46&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>94&nbsp;</td>
+		<td>73&nbsp;</td>
+		<td>2013-01-05 12:12&nbsp;</td>
+		<td>3.2&nbsp;</td>
+		<td>358&nbsp;</td>
+		<td>10.4&nbsp;</td>
+		<td>349&nbsp;</td>
+		<td>2013-01-05 13:28&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>6</td>
+		<td>1012.7&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1014.6&nbsp;</td>
+		<td>2013-01-06 09:01&nbsp;</td>
+		<td>1010.6&nbsp;</td>
+		<td>2013-01-06 14:17&nbsp;</td>
+		<td>17.3&nbsp;</td>
+		<td>23.2&nbsp;</td>
+		<td>2013-01-06 11:01&nbsp;</td>
+		<td>13.0&nbsp;</td>
+		<td>2013-01-06 02:18&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>94&nbsp;</td>
+		<td>74&nbsp;</td>
+		<td>2013-01-06 11:01&nbsp;</td>
+		<td>2.7&nbsp;</td>
+		<td>18&nbsp;</td>
+		<td>8.8&nbsp;</td>
+		<td>353&nbsp;</td>
+		<td>2013-01-06 13:34&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>7</td>
+		<td>1012.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1014.4&nbsp;</td>
+		<td>2013-01-07 09:04&nbsp;</td>
+		<td>1009.7&nbsp;</td>
+		<td>2013-01-07 14:16&nbsp;</td>
+		<td>18.9&nbsp;</td>
+		<td>24.2&nbsp;</td>
+		<td>2013-01-07 13:02&nbsp;</td>
+		<td>15.7&nbsp;</td>
+		<td>2013-01-07 00:03&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>94&nbsp;</td>
+		<td>75&nbsp;</td>
+		<td>2013-01-07 12:16&nbsp;</td>
+		<td>2.9&nbsp;</td>
+		<td>8&nbsp;</td>
+		<td>7.6&nbsp;</td>
+		<td>351&nbsp;</td>
+		<td>2013-01-07 15:50&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>8</td>
+		<td>1012.2&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1014.4&nbsp;</td>
+		<td>2013-01-08 08:57&nbsp;</td>
+		<td>1010.0&nbsp;</td>
+		<td>2013-01-08 15:08&nbsp;</td>
+		<td>17.5&nbsp;</td>
+		<td>20.1&nbsp;</td>
+		<td>2013-01-08 12:46&nbsp;</td>
+		<td>15.8&nbsp;</td>
+		<td>2013-01-08 23:49&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>97&nbsp;</td>
+		<td>86&nbsp;</td>
+		<td>2013-01-08 12:46&nbsp;</td>
+		<td>2.9&nbsp;</td>
+		<td>1&nbsp;</td>
+		<td>6.2&nbsp;</td>
+		<td>6&nbsp;</td>
+		<td>2013-01-08 06:54&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>9</td>
+		<td>1013.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1014.9&nbsp;</td>
+		<td>2013-01-09 09:17&nbsp;</td>
+		<td>1011.6&nbsp;</td>
+		<td>2013-01-09 13:49&nbsp;</td>
+		<td>15.4&nbsp;</td>
+		<td>19.3&nbsp;</td>
+		<td>2013-01-09 11:48&nbsp;</td>
+		<td>14.1&nbsp;</td>
+		<td>2013-01-09 23:48&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>93&nbsp;</td>
+		<td>76&nbsp;</td>
+		<td>2013-01-09 11:31&nbsp;</td>
+		<td>3.7&nbsp;</td>
+		<td>5&nbsp;</td>
+		<td>9.5&nbsp;</td>
+		<td>37&nbsp;</td>
+		<td>2013-01-09 11:48&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>10</td>
+		<td>1014.4&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1016.2&nbsp;</td>
+		<td>2013-01-10 08:36&nbsp;</td>
+		<td>1013.1&nbsp;</td>
+		<td>2013-01-10 14:47&nbsp;</td>
+		<td>15.8&nbsp;</td>
+		<td>20.7&nbsp;</td>
+		<td>2013-01-10 14:31&nbsp;</td>
+		<td>11.9&nbsp;</td>
+		<td>2013-01-10 23:55&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>85&nbsp;</td>
+		<td>68&nbsp;</td>
+		<td>2013-01-10 11:46&nbsp;</td>
+		<td>3.1&nbsp;</td>
+		<td>4&nbsp;</td>
+		<td>8.2&nbsp;</td>
+		<td>8&nbsp;</td>
+		<td>2013-01-10 17:41&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>11</td>
+		<td>1015.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1016.3&nbsp;</td>
+		<td>2013-01-11 08:46&nbsp;</td>
+		<td>1013.7&nbsp;</td>
+		<td>2013-01-11 15:16&nbsp;</td>
+		<td>15.9&nbsp;</td>
+		<td>22.4&nbsp;</td>
+		<td>2013-01-11 13:01&nbsp;</td>
+		<td>10.7&nbsp;</td>
+		<td>2013-01-11 02:24&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>92&nbsp;</td>
+		<td>63&nbsp;</td>
+		<td>2013-01-11 13:01&nbsp;</td>
+		<td>2.3&nbsp;</td>
+		<td>5&nbsp;</td>
+		<td>8.0&nbsp;</td>
+		<td>7&nbsp;</td>
+		<td>2013-01-11 19:50&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>12</td>
+		<td>1012.2&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1016.2&nbsp;</td>
+		<td>2013-01-12 00:48&nbsp;</td>
+		<td>1009.1&nbsp;</td>
+		<td>2013-01-12 20:24&nbsp;</td>
+		<td>18.6&nbsp;</td>
+		<td>23.4&nbsp;</td>
+		<td>2013-01-12 12:19&nbsp;</td>
+		<td>16.0&nbsp;</td>
+		<td>2013-01-12 03:31&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>95&nbsp;</td>
+		<td>77&nbsp;</td>
+		<td>2013-01-12 12:02&nbsp;</td>
+		<td>3.3&nbsp;</td>
+		<td>4&nbsp;</td>
+		<td>8.6&nbsp;</td>
+		<td>17&nbsp;</td>
+		<td>2013-01-12 13:52&nbsp;</td>
+		<td>0.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>13</td>
+		<td>1009.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1010.9&nbsp;</td>
+		<td>2013-01-13 08:20&nbsp;</td>
+		<td>1006.8&nbsp;</td>
+		<td>2013-01-13 14:31&nbsp;</td>
+		<td>16.3&nbsp;</td>
+		<td>19.5&nbsp;</td>
+		<td>2013-01-13 13:24&nbsp;</td>
+		<td>13.1&nbsp;</td>
+		<td>2013-01-13 23:49&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>98&nbsp;</td>
+		<td>90&nbsp;</td>
+		<td>2013-01-13 22:50&nbsp;</td>
+		<td>3.4&nbsp;</td>
+		<td>4&nbsp;</td>
+		<td>12.4&nbsp;</td>
+		<td>6&nbsp;</td>
+		<td>2013-01-13 15:44&nbsp;</td>
+		<td>7.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>14</td>
+		<td>1013.2&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1015.6&nbsp;</td>
+		<td>2013-01-14 22:33&nbsp;</td>
+		<td>1009.1&nbsp;</td>
+		<td>2013-01-14 00:02&nbsp;</td>
+		<td>14.5&nbsp;</td>
+		<td>21.2&nbsp;</td>
+		<td>2013-01-14 13:51&nbsp;</td>
+		<td>9.0&nbsp;</td>
+		<td>2013-01-14 23:50&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>76&nbsp;</td>
+		<td>50&nbsp;</td>
+		<td>2013-01-14 12:51&nbsp;</td>
+		<td>3.7&nbsp;</td>
+		<td>13&nbsp;</td>
+		<td>13.1&nbsp;</td>
+		<td>0&nbsp;</td>
+		<td>2013-01-14 00:52&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>15</td>
+		<td>1016.2&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1017.6&nbsp;</td>
+		<td>2013-01-15 06:48&nbsp;</td>
+		<td>1014.4&nbsp;</td>
+		<td>2013-01-15 14:48&nbsp;</td>
+		<td>15.1&nbsp;</td>
+		<td>23.4&nbsp;</td>
+		<td>2013-01-15 12:46&nbsp;</td>
+		<td>8.5&nbsp;</td>
+		<td>2013-01-15 03:16&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>84&nbsp;</td>
+		<td>47&nbsp;</td>
+		<td>2013-01-15 10:17&nbsp;</td>
+		<td>1.2&nbsp;</td>
+		<td>6&nbsp;</td>
+		<td>7.1&nbsp;</td>
+		<td>334&nbsp;</td>
+		<td>2013-01-15 15:58&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>16</td>
+		<td>1016.9&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1018.5&nbsp;</td>
+		<td>2013-01-16 08:32&nbsp;</td>
+		<td>1014.9&nbsp;</td>
+		<td>2013-01-16 14:31&nbsp;</td>
+		<td>15.9&nbsp;</td>
+		<td>22.3&nbsp;</td>
+		<td>2013-01-16 12:14&nbsp;</td>
+		<td>10.2&nbsp;</td>
+		<td>2013-01-16 05:31&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>90&nbsp;</td>
+		<td>64&nbsp;</td>
+		<td>2013-01-16 12:16&nbsp;</td>
+		<td>1.8&nbsp;</td>
+		<td>342&nbsp;</td>
+		<td>7.7&nbsp;</td>
+		<td>336&nbsp;</td>
+		<td>2013-01-16 15:48&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>17</td>
+		<td>1019.2&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>14.3&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>84&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>3.8&nbsp;</td>
+		<td>6&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>18</td>
+		<td>1020.4&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1022.9&nbsp;</td>
+		<td>2013-01-18 09:02&nbsp;</td>
+		<td>1018.2&nbsp;</td>
+		<td>2013-01-18 14:35&nbsp;</td>
+		<td>13.4&nbsp;</td>
+		<td>20.2&nbsp;</td>
+		<td>2013-01-18 13:46&nbsp;</td>
+		<td>9.3&nbsp;</td>
+		<td>2013-01-19 00:00&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>71&nbsp;</td>
+		<td>49&nbsp;</td>
+		<td>2013-01-18 14:19&nbsp;</td>
+		<td>2.6&nbsp;</td>
+		<td>6&nbsp;</td>
+		<td>8.3&nbsp;</td>
+		<td>334&nbsp;</td>
+		<td>2013-01-18 15:11&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>19</td>
+		<td>1018.4&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1020.6&nbsp;</td>
+		<td>2013-01-19 09:18&nbsp;</td>
+		<td>1015.6&nbsp;</td>
+		<td>2013-01-19 15:04&nbsp;</td>
+		<td>14.8&nbsp;</td>
+		<td>22.6&nbsp;</td>
+		<td>2013-01-19 13:19&nbsp;</td>
+		<td>7.8&nbsp;</td>
+		<td>2013-01-19 06:01&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>87&nbsp;</td>
+		<td>54&nbsp;</td>
+		<td>2013-01-19 12:34&nbsp;</td>
+		<td>1.3&nbsp;</td>
+		<td>342&nbsp;</td>
+		<td>6.2&nbsp;</td>
+		<td>320&nbsp;</td>
+		<td>2013-01-19 14:56&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>20</td>
+		<td>1017.6&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1020.4&nbsp;</td>
+		<td>2013-01-20 09:18&nbsp;</td>
+		<td>1015.4&nbsp;</td>
+		<td>2013-01-20 15:08&nbsp;</td>
+		<td>16.6&nbsp;</td>
+		<td>23.1&nbsp;</td>
+		<td>2013-01-20 12:54&nbsp;</td>
+		<td>11.8&nbsp;</td>
+		<td>2013-01-20 06:37&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>90&nbsp;</td>
+		<td>56&nbsp;</td>
+		<td>2013-01-20 15:01&nbsp;</td>
+		<td>1.5&nbsp;</td>
+		<td>5&nbsp;</td>
+		<td>6.8&nbsp;</td>
+		<td>315&nbsp;</td>
+		<td>2013-01-20 13:08&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>21</td>
+		<td>1015.9&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1017.9&nbsp;</td>
+		<td>2013-01-21 08:51&nbsp;</td>
+		<td>1014.6&nbsp;</td>
+		<td>2013-01-21 14:57&nbsp;</td>
+		<td>18.1&nbsp;</td>
+		<td>26.1&nbsp;</td>
+		<td>2013-01-21 13:20&nbsp;</td>
+		<td>12.5&nbsp;</td>
+		<td>2013-01-21 04:06&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>88&nbsp;</td>
+		<td>50&nbsp;</td>
+		<td>2013-01-21 13:31&nbsp;</td>
+		<td>1.0&nbsp;</td>
+		<td>1&nbsp;</td>
+		<td>5.2&nbsp;</td>
+		<td>318&nbsp;</td>
+		<td>2013-01-21 15:25&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>22</td>
+		<td>1014.9&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1017.4&nbsp;</td>
+		<td>2013-01-22 09:18&nbsp;</td>
+		<td>1013.0&nbsp;</td>
+		<td>2013-01-22 15:56&nbsp;</td>
+		<td>18.5&nbsp;</td>
+		<td>26.4&nbsp;</td>
+		<td>2013-01-22 13:33&nbsp;</td>
+		<td>14.3&nbsp;</td>
+		<td>2013-01-22 06:19&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>93&nbsp;</td>
+		<td>64&nbsp;</td>
+		<td>2013-01-22 13:33&nbsp;</td>
+		<td>2.0&nbsp;</td>
+		<td>354&nbsp;</td>
+		<td>7.5&nbsp;</td>
+		<td>0&nbsp;</td>
+		<td>2013-01-22 15:12&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>23</td>
+		<td>1014.1&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1016.5&nbsp;</td>
+		<td>2013-01-23 07:16&nbsp;</td>
+		<td>1011.9&nbsp;</td>
+		<td>2013-01-23 15:01&nbsp;</td>
+		<td>17.8&nbsp;</td>
+		<td>22.8&nbsp;</td>
+		<td>2013-01-23 11:51&nbsp;</td>
+		<td>14.6&nbsp;</td>
+		<td>2013-01-23 23:46&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>92&nbsp;</td>
+		<td>71&nbsp;</td>
+		<td>2013-01-23 14:26&nbsp;</td>
+		<td>2.9&nbsp;</td>
+		<td>355&nbsp;</td>
+		<td>8.2&nbsp;</td>
+		<td>341&nbsp;</td>
+		<td>2013-01-23 14:01&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>24</td>
+		<td>1013.1&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1015.2&nbsp;</td>
+		<td>2013-01-24 09:31&nbsp;</td>
+		<td>1011.6&nbsp;</td>
+		<td>2013-01-24 14:38&nbsp;</td>
+		<td>17.2&nbsp;</td>
+		<td>23.2&nbsp;</td>
+		<td>2013-01-24 12:32&nbsp;</td>
+		<td>14.4&nbsp;</td>
+		<td>2013-01-24 07:05&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>91&nbsp;</td>
+		<td>67&nbsp;</td>
+		<td>2013-01-24 12:17&nbsp;</td>
+		<td>2.1&nbsp;</td>
+		<td>348&nbsp;</td>
+		<td>7.8&nbsp;</td>
+		<td>334&nbsp;</td>
+		<td>2013-01-24 14:54&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>25</td>
+		<td>1013.3&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1014.7&nbsp;</td>
+		<td>2013-01-25 21:51&nbsp;</td>
+		<td>1011.5&nbsp;</td>
+		<td>2013-01-25 14:31&nbsp;</td>
+		<td>16.4&nbsp;</td>
+		<td>20.9&nbsp;</td>
+		<td>2013-01-25 13:34&nbsp;</td>
+		<td>13.2&nbsp;</td>
+		<td>2013-01-25 22:34&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>86&nbsp;</td>
+		<td>62&nbsp;</td>
+		<td>2013-01-25 13:34&nbsp;</td>
+		<td>3.3&nbsp;</td>
+		<td>356&nbsp;</td>
+		<td>7.8&nbsp;</td>
+		<td>19&nbsp;</td>
+		<td>2013-01-25 08:59&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>26</td>
+		<td>1014.1&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1015.9&nbsp;</td>
+		<td>2013-01-26 09:33&nbsp;</td>
+		<td>1012.5&nbsp;</td>
+		<td>2013-01-26 14:21&nbsp;</td>
+		<td>15.2&nbsp;</td>
+		<td>18.7&nbsp;</td>
+		<td>2013-01-26 13:51&nbsp;</td>
+		<td>12.6&nbsp;</td>
+		<td>2013-01-26 05:19&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>93&nbsp;</td>
+		<td>81&nbsp;</td>
+		<td>2013-01-26 14:50&nbsp;</td>
+		<td>2.3&nbsp;</td>
+		<td>4&nbsp;</td>
+		<td>7.3&nbsp;</td>
+		<td>0&nbsp;</td>
+		<td>2013-01-26 06:22&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>27</td>
+		<td>1015.7&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1017.2&nbsp;</td>
+		<td>2013-01-27 09:26&nbsp;</td>
+		<td>1013.8&nbsp;</td>
+		<td>2013-01-27 01:17&nbsp;</td>
+		<td>16.0&nbsp;</td>
+		<td>21.3&nbsp;</td>
+		<td>2013-01-27 14:31&nbsp;</td>
+		<td>11.8&nbsp;</td>
+		<td>2013-01-27 23:57&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>80&nbsp;</td>
+		<td>56&nbsp;</td>
+		<td>2013-01-27 14:51&nbsp;</td>
+		<td>3.0&nbsp;</td>
+		<td>9&nbsp;</td>
+		<td>11.0&nbsp;</td>
+		<td>9&nbsp;</td>
+		<td>2013-01-27 15:32&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>28</td>
+		<td>1016.8&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1018.7&nbsp;</td>
+		<td>2013-01-28 09:46&nbsp;</td>
+		<td>1015.6&nbsp;</td>
+		<td>2013-01-28 04:04&nbsp;</td>
+		<td>15.6&nbsp;</td>
+		<td>23.4&nbsp;</td>
+		<td>2013-01-28 13:37&nbsp;</td>
+		<td>9.9&nbsp;</td>
+		<td>2013-01-28 06:01&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>83&nbsp;</td>
+		<td>52&nbsp;</td>
+		<td>2013-01-28 13:07&nbsp;</td>
+		<td>1.2&nbsp;</td>
+		<td>325&nbsp;</td>
+		<td>5.7&nbsp;</td>
+		<td>330&nbsp;</td>
+		<td>2013-01-28 13:47&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>29</td>
+		<td>1017.8&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1019.3&nbsp;</td>
+		<td>2013-01-29 09:16&nbsp;</td>
+		<td>1016.5&nbsp;</td>
+		<td>2013-01-29 01:35&nbsp;</td>
+		<td>16.7&nbsp;</td>
+		<td>23.9&nbsp;</td>
+		<td>2013-01-29 15:16&nbsp;</td>
+		<td>12.1&nbsp;</td>
+		<td>2013-01-29 04:20&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>87&nbsp;</td>
+		<td>42&nbsp;</td>
+		<td>2013-01-29 14:38&nbsp;</td>
+		<td>1.6&nbsp;</td>
+		<td>343&nbsp;</td>
+		<td>6.7&nbsp;</td>
+		<td>12&nbsp;</td>
+		<td>2013-01-29 09:16&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>30</td>
+		<td>1018.2&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1020.9&nbsp;</td>
+		<td>2013-01-30 09:26&nbsp;</td>
+		<td>1017.1&nbsp;</td>
+		<td>2013-01-30 17:13&nbsp;</td>
+		<td>16.8&nbsp;</td>
+		<td>23.9&nbsp;</td>
+		<td>2013-01-30 14:01&nbsp;</td>
+		<td>10.9&nbsp;</td>
+		<td>2013-01-30 06:46&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>83&nbsp;</td>
+		<td>45&nbsp;</td>
+		<td>2013-01-30 12:05&nbsp;</td>
+		<td>1.9&nbsp;</td>
+		<td>15&nbsp;</td>
+		<td>7.7&nbsp;</td>
+		<td>327&nbsp;</td>
+		<td>2013-01-30 13:12&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>31</td>
+		<td>1017.7&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1019.7&nbsp;</td>
+		<td>2013-01-31 09:21&nbsp;</td>
+		<td>1015.7&nbsp;</td>
+		<td>2013-01-31 15:03&nbsp;</td>
+		<td>17.2&nbsp;</td>
+		<td>25.8&nbsp;</td>
+		<td>2013-01-31 14:51&nbsp;</td>
+		<td>10.9&nbsp;</td>
+		<td>2013-01-31 06:01&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>83&nbsp;</td>
+		<td>37&nbsp;</td>
+		<td>2013-01-31 13:33&nbsp;</td>
+		<td>1.4&nbsp;</td>
+		<td>331&nbsp;</td>
+		<td>6.0&nbsp;</td>
+		<td>321&nbsp;</td>
+		<td>2013-01-31 14:39&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 		
+	</tbody>
+	</table>
+	<label class="imp"></label>
+</div>
+</body>
+</html>

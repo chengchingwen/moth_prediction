@@ -1,0 +1,1221 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link href="css/tablecss.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery-1.11.3.js"></script> 
+
+ <script type="text/javascript">
+ var month_url="MonthDataController.do?command=viewMain";
+     
+$(function() {
+	var nexArr = '2015-06'.split("-");
+	var preArr = '2015-04'.split("-");
+	var now = new Date();
+	if(new Date(nexArr[0],nexArr[1]-1,1) >= new Date(now.getFullYear(), now.getMonth()+1, 1))
+		$("#nexItem").css("display","none");
+	if(new Date(preArr[0],preArr[1]-1,1) < new Date(now.getFullYear()-3, now.getMonth()+1, 1))
+		$("#preItem").css("display","none");
+	
+	
+	$("#preItem").click(function (event){
+		//window.location.href =month_url+"&station="+$("#stno").val()+"&datepicker="+$("#preDate").val();
+		window.location.href =encodeURI(month_url+"&station="+$("#stno").val()+"&stname="+encodeURI($("#stnCname").val())+"&datepicker="+$("#preDate").val());
+    });
+	 
+	$("#nexItem").click(function (event){
+		//window.location.href =month_url+"&station="+$("#stno").val()+"&datepicker="+$("#nexDate").val();
+		window.location.href =encodeURI(month_url+"&station="+$("#stno").val()+"&stname="+encodeURI($("#stnCname").val())+"&datepicker="+$("#nexDate").val());
+	});	 
+});
+ </script>
+</head>
+<body>
+<div id="hea_t" style="position:fixed;top:0px;">
+<table border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td>測站:C0S710_Luye&nbsp;&nbsp;</td>
+<td><a id="preItem" href="#"><input type="image" src="images/buttons_l.png"   width="24" height="24"></a></td>
+<td>觀測時間:2015-05</td>
+<td><a id="nexItem" href="#"><input type="image" src="images/buttons_r.png"   width="24" height="24"></a></td>
+</tr>
+</table>
+	<input type="hidden"  value="C0S710" id="stno">
+	<input type="hidden"  value="2015-04" id="preDate">
+	<input type="hidden"  value="2015-06" id="nexDate">
+	<input type="hidden"  value="Luye" id="stnCname">
+</div>
+<div class="CSSTableGenerator" style="position:relative;top:30px">
+	<table id="MyTable" border="0" cellpadding="10" cellspacing="0">
+	<tbody>
+	<tr class="first_tr">
+		<th width="10px">&nbsp;</th>
+		<th colspan="6">press</th>
+		<th colspan="5">temperature</th>
+		<th>Dew Point</th>
+		<th colspan="3">RH</th>
+		<th colspan="5">WS/WD</th>
+		<th colspan="6">Precp</th>
+		<th colspan="3">SunShine</th>
+		<th>visibility</th>
+		<th>Evaperation</th>
+	 </tr>
+	 <tr class="second_tr">
+		<th>觀測時間<br>(LST)<br>ObsTime</th>
+		<th>測站氣壓<br>(hPa)<br>StnPres</th>
+		<th>海平面氣壓<br>(hPa)<br>SeaPres</th>
+		<th>測站最高氣壓<br>(hPa)<br>StnPresMax</th>
+		<th>測站最高氣壓時間<br>(LST)<br>StnPresMaxTime</th>
+		<th>測站最低氣壓<br>(hPa)<br>StnPresMin</th>
+		<th>測站最低氣壓時間<br>(LST)<br>StnPresMinTime</th>
+		<th>氣溫<br>(℃)<br>Temperature</th>
+		<th>最高氣溫<br>(℃)<br>T Max</th>
+		<th>最高氣溫時間<br>(LST)<br>T Max Time</th>
+		<th>最低氣溫<br>(℃)<br>T Min</th>
+		<th>最低氣溫時間<br>(LST)<br>T Min Time</th>
+		<th>露點溫度<br>(℃)<br>Td dew point</th>
+		<th>相對溼度<br>(%)<br>RH</th>
+		<th>最小相對溼度<br>(%)<br>RHMin</th>
+		<th>最小相對溼度時間<br>(LST)<br>RHMinTime</th>
+		<th>風速<br>(m/s)<br>WS   </th>
+		<th>風向<br>(最多風向)<br>(360degree)<br>WD   </th>
+		<th>最大陣風<br>(m/s)<br>WSGust</th>
+		<th>最大陣風風向<br>(360degree)<br>WDGust</th>
+		<th>最大陣風風速時間<br>(LST)<br>WGustTime</th>
+		<th>降水量<br>(mm)<br>Precp</th>
+		<th>降水時數<br>(hr)<br>PrecpHour </th>
+		<th>10分鐘最大降水量<br>(mm)<br>PrecpMax10</th>
+		<th>10分鐘最大降水起始時間<br>(LST)<br>PrecpMax10Time</th>
+		<th>一小時最大降水量<br>(mm)<br>PrecpHrMax</th>
+		<th>一小時最大降水量起始時間<br>(LST)<br>PrecpHrMaxTime</th>
+		<th>日照時數<br>(hr)<br>SunShine</th>
+		<th>日照率<br>(%)<br>SunShineRate</th>
+		<th>全天空日射量<br>(MJ/㎡)<br>GloblRad</th>
+		<th>能見度<br>(km)<br>VisbMean</th>
+		<th>A型蒸發量<br>(mm)<br>EvapA</th>		
+	 </tr>
+	 
+	 
+	 
+	 <tr>
+		<td nowrap>1</td>
+		<td>971.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>972.4&nbsp;</td>
+		<td>2015-05-01 09:12&nbsp;</td>
+		<td>969.5&nbsp;</td>
+		<td>2015-05-01 16:24&nbsp;</td>
+		<td>21.5&nbsp;</td>
+		<td>23.7&nbsp;</td>
+		<td>2015-05-01 10:10&nbsp;</td>
+		<td>20.1&nbsp;</td>
+		<td>2015-05-01 05:31&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.6&nbsp;</td>
+		<td>5&nbsp;</td>
+		<td>4.4&nbsp;</td>
+		<td>6&nbsp;</td>
+		<td>2015-05-01 01:22&nbsp;</td>
+		<td>3.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>2</td>
+		<td>969.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>971.5&nbsp;</td>
+		<td>2015-05-02 00:02&nbsp;</td>
+		<td>966.6&nbsp;</td>
+		<td>2015-05-02 18:23&nbsp;</td>
+		<td>23.0&nbsp;</td>
+		<td>26.4&nbsp;</td>
+		<td>2015-05-02 10:39&nbsp;</td>
+		<td>20.0&nbsp;</td>
+		<td>2015-05-02 04:04&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.9&nbsp;</td>
+		<td>2&nbsp;</td>
+		<td>5.8&nbsp;</td>
+		<td>138&nbsp;</td>
+		<td>2015-05-02 13:44&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>3</td>
+		<td>967.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>970.5&nbsp;</td>
+		<td>2015-05-03 22:39&nbsp;</td>
+		<td>965.8&nbsp;</td>
+		<td>2015-05-03 15:36&nbsp;</td>
+		<td>25.5&nbsp;</td>
+		<td>33.0&nbsp;</td>
+		<td>2015-05-03 11:45&nbsp;</td>
+		<td>20.7&nbsp;</td>
+		<td>2015-05-03 05:02&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.5&nbsp;</td>
+		<td>3&nbsp;</td>
+		<td>5.4&nbsp;</td>
+		<td>360&nbsp;</td>
+		<td>2015-05-03 08:32&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>4</td>
+		<td>970.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>972.4&nbsp;</td>
+		<td>2015-05-04 23:00&nbsp;</td>
+		<td>969.0&nbsp;</td>
+		<td>2015-05-04 03:52&nbsp;</td>
+		<td>21.2&nbsp;</td>
+		<td>24.8&nbsp;</td>
+		<td>2015-05-04 08:33&nbsp;</td>
+		<td>18.7&nbsp;</td>
+		<td>2015-05-04 19:13&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0&nbsp;</td>
+		<td>8.4&nbsp;</td>
+		<td>17&nbsp;</td>
+		<td>2015-05-04 18:41&nbsp;</td>
+		<td>3.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>5</td>
+		<td>969.6&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>971.8&nbsp;</td>
+		<td>2015-05-05 00:05&nbsp;</td>
+		<td>967.8&nbsp;</td>
+		<td>2015-05-05 16:24&nbsp;</td>
+		<td>19.6&nbsp;</td>
+		<td>21.1&nbsp;</td>
+		<td>2015-05-05 13:58&nbsp;</td>
+		<td>18.7&nbsp;</td>
+		<td>2015-05-05 05:52&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0&nbsp;</td>
+		<td>2015-05-05 23:54&nbsp;</td>
+		<td>4.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>6</td>
+		<td>967.8&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>969.6&nbsp;</td>
+		<td>2015-05-06 00:06&nbsp;</td>
+		<td>965.6&nbsp;</td>
+		<td>2015-05-06 17:33&nbsp;</td>
+		<td>23.1&nbsp;</td>
+		<td>27.7&nbsp;</td>
+		<td>2015-05-06 10:22&nbsp;</td>
+		<td>19.2&nbsp;</td>
+		<td>2015-05-06 00:26&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0&nbsp;</td>
+		<td>10.2&nbsp;</td>
+		<td>359&nbsp;</td>
+		<td>2015-05-06 19:43&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>7</td>
+		<td>969.8&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>972.6&nbsp;</td>
+		<td>2015-05-07 22:29&nbsp;</td>
+		<td>967.8&nbsp;</td>
+		<td>2015-05-07 04:04&nbsp;</td>
+		<td>23.6&nbsp;</td>
+		<td>29.3&nbsp;</td>
+		<td>2015-05-07 10:33&nbsp;</td>
+		<td>20.8&nbsp;</td>
+		<td>2015-05-07 03:41&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0&nbsp;</td>
+		<td>2015-05-07 23:54&nbsp;</td>
+		<td>8.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>8</td>
+		<td>969.3&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>971.5&nbsp;</td>
+		<td>2015-05-08 00:09&nbsp;</td>
+		<td>967.3&nbsp;</td>
+		<td>2015-05-08 16:44&nbsp;</td>
+		<td>23.5&nbsp;</td>
+		<td>28.8&nbsp;</td>
+		<td>2015-05-08 10:30&nbsp;</td>
+		<td>21.2&nbsp;</td>
+		<td>2015-05-08 05:32&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>0&nbsp;</td>
+		<td>2015-05-08 23:54&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>9</td>
+		<td>968.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>970.8&nbsp;</td>
+		<td>2015-05-09 22:00&nbsp;</td>
+		<td>966.8&nbsp;</td>
+		<td>2015-05-09 05:34&nbsp;</td>
+		<td>24.3&nbsp;</td>
+		<td>30.8&nbsp;</td>
+		<td>2015-05-09 13:12&nbsp;</td>
+		<td>20.3&nbsp;</td>
+		<td>2015-05-09 04:59&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.3&nbsp;</td>
+		<td>13&nbsp;</td>
+		<td>5.3&nbsp;</td>
+		<td>127&nbsp;</td>
+		<td>2015-05-09 17:43&nbsp;</td>
+		<td>5.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>10</td>
+		<td>970.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>971.7&nbsp;</td>
+		<td>2015-05-10 22:55&nbsp;</td>
+		<td>969.0&nbsp;</td>
+		<td>2015-05-10 03:12&nbsp;</td>
+		<td>25.2&nbsp;</td>
+		<td>31.1&nbsp;</td>
+		<td>2015-05-10 13:15&nbsp;</td>
+		<td>22.5&nbsp;</td>
+		<td>2015-05-10 05:33&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1.0&nbsp;</td>
+		<td>10&nbsp;</td>
+		<td>5.8&nbsp;</td>
+		<td>201&nbsp;</td>
+		<td>2015-05-10 14:19&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>11</td>
+		<td>968.1&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>970.9&nbsp;</td>
+		<td>2015-05-11 09:36&nbsp;</td>
+		<td>963.5&nbsp;</td>
+		<td>2015-05-11 17:22&nbsp;</td>
+		<td>22.8&nbsp;</td>
+		<td>25.1&nbsp;</td>
+		<td>2015-05-11 17:16&nbsp;</td>
+		<td>20.3&nbsp;</td>
+		<td>2015-05-11 10:49&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1.9&nbsp;</td>
+		<td>12&nbsp;</td>
+		<td>10.9&nbsp;</td>
+		<td>22&nbsp;</td>
+		<td>2015-05-11 15:19&nbsp;</td>
+		<td>24.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>12</td>
+		<td>970.1&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>973.5&nbsp;</td>
+		<td>2015-05-12 22:13&nbsp;</td>
+		<td>966.7&nbsp;</td>
+		<td>2015-05-12 03:13&nbsp;</td>
+		<td>21.6&nbsp;</td>
+		<td>27.5&nbsp;</td>
+		<td>2015-05-12 08:58&nbsp;</td>
+		<td>17.7&nbsp;</td>
+		<td>2015-05-12 20:57&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>2.2&nbsp;</td>
+		<td>5&nbsp;</td>
+		<td>9.6&nbsp;</td>
+		<td>16&nbsp;</td>
+		<td>2015-05-12 21:19&nbsp;</td>
+		<td>2.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>13</td>
+		<td>972.3&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>973.9&nbsp;</td>
+		<td>2015-05-13 09:11&nbsp;</td>
+		<td>970.7&nbsp;</td>
+		<td>2015-05-13 16:58&nbsp;</td>
+		<td>22.3&nbsp;</td>
+		<td>28.3&nbsp;</td>
+		<td>2015-05-13 11:41&nbsp;</td>
+		<td>17.7&nbsp;</td>
+		<td>2015-05-13 03:34&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.8&nbsp;</td>
+		<td>2&nbsp;</td>
+		<td>6.5&nbsp;</td>
+		<td>126&nbsp;</td>
+		<td>2015-05-13 11:59&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>14</td>
+		<td>972.4&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>973.9&nbsp;</td>
+		<td>2015-05-14 09:44&nbsp;</td>
+		<td>971.0&nbsp;</td>
+		<td>2015-05-14 15:39&nbsp;</td>
+		<td>23.6&nbsp;</td>
+		<td>27.7&nbsp;</td>
+		<td>2015-05-14 09:27&nbsp;</td>
+		<td>20.5&nbsp;</td>
+		<td>2015-05-14 04:55&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.5&nbsp;</td>
+		<td>191&nbsp;</td>
+		<td>7.3&nbsp;</td>
+		<td>199&nbsp;</td>
+		<td>2015-05-14 12:57&nbsp;</td>
+		<td>3.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>15</td>
+		<td>970.9&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>973.0&nbsp;</td>
+		<td>2015-05-15 08:41&nbsp;</td>
+		<td>968.4&nbsp;</td>
+		<td>2015-05-15 17:50&nbsp;</td>
+		<td>24.3&nbsp;</td>
+		<td>27.0&nbsp;</td>
+		<td>2015-05-15 09:00&nbsp;</td>
+		<td>21.8&nbsp;</td>
+		<td>2015-05-15 05:44&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.8&nbsp;</td>
+		<td>166&nbsp;</td>
+		<td>7.1&nbsp;</td>
+		<td>207&nbsp;</td>
+		<td>2015-05-15 11:37&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>16</td>
+		<td>969.1&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>970.9&nbsp;</td>
+		<td>2015-05-16 09:01&nbsp;</td>
+		<td>966.8&nbsp;</td>
+		<td>2015-05-16 16:31&nbsp;</td>
+		<td>25.7&nbsp;</td>
+		<td>30.6&nbsp;</td>
+		<td>2015-05-16 14:19&nbsp;</td>
+		<td>20.6&nbsp;</td>
+		<td>2015-05-16 05:30&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1.2&nbsp;</td>
+		<td>6&nbsp;</td>
+		<td>7.3&nbsp;</td>
+		<td>8&nbsp;</td>
+		<td>2015-05-16 20:57&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>17</td>
+		<td>968.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>970.0&nbsp;</td>
+		<td>2015-05-17 00:13&nbsp;</td>
+		<td>967.0&nbsp;</td>
+		<td>2015-05-17 15:42&nbsp;</td>
+		<td>24.8&nbsp;</td>
+		<td>29.7&nbsp;</td>
+		<td>2015-05-17 10:56&nbsp;</td>
+		<td>22.1&nbsp;</td>
+		<td>2015-05-17 04:53&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.8&nbsp;</td>
+		<td>51&nbsp;</td>
+		<td>5.9&nbsp;</td>
+		<td>137&nbsp;</td>
+		<td>2015-05-17 11:54&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>18</td>
+		<td>966.9&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>969.3&nbsp;</td>
+		<td>2015-05-18 08:23&nbsp;</td>
+		<td>964.1&nbsp;</td>
+		<td>2015-05-18 16:29&nbsp;</td>
+		<td>25.7&nbsp;</td>
+		<td>30.9&nbsp;</td>
+		<td>2015-05-18 16:11&nbsp;</td>
+		<td>21.1&nbsp;</td>
+		<td>2015-05-18 06:03&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1.1&nbsp;</td>
+		<td>3&nbsp;</td>
+		<td>8.0&nbsp;</td>
+		<td>13&nbsp;</td>
+		<td>2015-05-18 20:11&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>19</td>
+		<td>966.1&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>967.7&nbsp;</td>
+		<td>2015-05-19 22:28&nbsp;</td>
+		<td>964.0&nbsp;</td>
+		<td>2015-05-19 16:08&nbsp;</td>
+		<td>26.0&nbsp;</td>
+		<td>31.3&nbsp;</td>
+		<td>2015-05-19 12:41&nbsp;</td>
+		<td>21.8&nbsp;</td>
+		<td>2015-05-19 06:18&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.7&nbsp;</td>
+		<td>178&nbsp;</td>
+		<td>5.7&nbsp;</td>
+		<td>188&nbsp;</td>
+		<td>2015-05-19 16:52&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>20</td>
+		<td>967.4&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>970.9&nbsp;</td>
+		<td>2015-05-20 22:46&nbsp;</td>
+		<td>965.5&nbsp;</td>
+		<td>2015-05-20 04:12&nbsp;</td>
+		<td>25.5&nbsp;</td>
+		<td>29.7&nbsp;</td>
+		<td>2015-05-20 11:13&nbsp;</td>
+		<td>21.9&nbsp;</td>
+		<td>2015-05-20 05:15&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.6&nbsp;</td>
+		<td>197&nbsp;</td>
+		<td>4.1&nbsp;</td>
+		<td>140&nbsp;</td>
+		<td>2015-05-20 11:56&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>21</td>
+		<td>971.4&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>973.3&nbsp;</td>
+		<td>2015-05-21 10:26&nbsp;</td>
+		<td>969.8&nbsp;</td>
+		<td>2015-05-21 04:17&nbsp;</td>
+		<td>20.1&nbsp;</td>
+		<td>23.3&nbsp;</td>
+		<td>2015-05-21 00:21&nbsp;</td>
+		<td>18.7&nbsp;</td>
+		<td>2015-05-21 23:25&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>2.3&nbsp;</td>
+		<td>9&nbsp;</td>
+		<td>8.6&nbsp;</td>
+		<td>22&nbsp;</td>
+		<td>2015-05-21 11:03&nbsp;</td>
+		<td>6.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>22</td>
+		<td>968.1&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>971.5&nbsp;</td>
+		<td>2015-05-22 00:02&nbsp;</td>
+		<td>965.2&nbsp;</td>
+		<td>2015-05-22 17:05&nbsp;</td>
+		<td>21.5&nbsp;</td>
+		<td>23.8&nbsp;</td>
+		<td>2015-05-22 10:57&nbsp;</td>
+		<td>18.8&nbsp;</td>
+		<td>2015-05-22 00:27&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.8&nbsp;</td>
+		<td>3&nbsp;</td>
+		<td>4.9&nbsp;</td>
+		<td>251&nbsp;</td>
+		<td>2015-05-22 11:49&nbsp;</td>
+		<td>13.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>23</td>
+		<td>965.9&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>967.1&nbsp;</td>
+		<td>2015-05-23 08:23&nbsp;</td>
+		<td>964.9&nbsp;</td>
+		<td>2015-05-23 16:39&nbsp;</td>
+		<td>23.0&nbsp;</td>
+		<td>25.5&nbsp;</td>
+		<td>2015-05-23 09:19&nbsp;</td>
+		<td>21.5&nbsp;</td>
+		<td>2015-05-23 04:46&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.8&nbsp;</td>
+		<td>5&nbsp;</td>
+		<td>4.5&nbsp;</td>
+		<td>38&nbsp;</td>
+		<td>2015-05-23 22:39&nbsp;</td>
+		<td>14.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>24</td>
+		<td>964.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>966.1&nbsp;</td>
+		<td>2015-05-24 22:19&nbsp;</td>
+		<td>963.4&nbsp;</td>
+		<td>2015-05-24 04:55&nbsp;</td>
+		<td>23.3&nbsp;</td>
+		<td>25.5&nbsp;</td>
+		<td>2015-05-24 12:38&nbsp;</td>
+		<td>22.1&nbsp;</td>
+		<td>2015-05-24 05:22&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.7&nbsp;</td>
+		<td>4&nbsp;</td>
+		<td>5.4&nbsp;</td>
+		<td>2&nbsp;</td>
+		<td>2015-05-24 22:31&nbsp;</td>
+		<td>12.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>25</td>
+		<td>966.7&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>969.8&nbsp;</td>
+		<td>2015-05-25 22:58&nbsp;</td>
+		<td>964.3&nbsp;</td>
+		<td>2015-05-25 02:45&nbsp;</td>
+		<td>22.3&nbsp;</td>
+		<td>23.6&nbsp;</td>
+		<td>2015-05-25 13:47&nbsp;</td>
+		<td>21.3&nbsp;</td>
+		<td>2015-05-25 23:48&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.7&nbsp;</td>
+		<td>7&nbsp;</td>
+		<td>6.5&nbsp;</td>
+		<td>2&nbsp;</td>
+		<td>2015-05-25 17:59&nbsp;</td>
+		<td>67.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>26</td>
+		<td>969.3&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>970.8&nbsp;</td>
+		<td>2015-05-26 10:10&nbsp;</td>
+		<td>968.0&nbsp;</td>
+		<td>2015-05-26 16:31&nbsp;</td>
+		<td>22.4&nbsp;</td>
+		<td>23.8&nbsp;</td>
+		<td>2015-05-26 13:08&nbsp;</td>
+		<td>21.3&nbsp;</td>
+		<td>2015-05-26 01:52&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.4&nbsp;</td>
+		<td>2&nbsp;</td>
+		<td>3.2&nbsp;</td>
+		<td>5&nbsp;</td>
+		<td>2015-05-26 21:22&nbsp;</td>
+		<td>9.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>27</td>
+		<td>967.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>969.4&nbsp;</td>
+		<td>2015-05-28 00:00&nbsp;</td>
+		<td>965.2&nbsp;</td>
+		<td>2015-05-27 17:25&nbsp;</td>
+		<td>24.2&nbsp;</td>
+		<td>29.0&nbsp;</td>
+		<td>2015-05-27 11:37&nbsp;</td>
+		<td>21.9&nbsp;</td>
+		<td>2015-05-27 04:40&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.5&nbsp;</td>
+		<td>345&nbsp;</td>
+		<td>3.6&nbsp;</td>
+		<td>181&nbsp;</td>
+		<td>2015-05-27 13:19&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>28</td>
+		<td>964.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>966.2&nbsp;</td>
+		<td>2015-05-28 22:56&nbsp;</td>
+		<td>962.0&nbsp;</td>
+		<td>2015-05-28 15:42&nbsp;</td>
+		<td>25.5&nbsp;</td>
+		<td>30.8&nbsp;</td>
+		<td>2015-05-28 15:34&nbsp;</td>
+		<td>21.7&nbsp;</td>
+		<td>2015-05-28 03:55&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.8&nbsp;</td>
+		<td>205&nbsp;</td>
+		<td>4.1&nbsp;</td>
+		<td>359&nbsp;</td>
+		<td>2015-05-28 03:10&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>29</td>
+		<td>965.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>967.2&nbsp;</td>
+		<td>2015-05-29 21:57&nbsp;</td>
+		<td>964.2&nbsp;</td>
+		<td>2015-05-29 03:16&nbsp;</td>
+		<td>26.0&nbsp;</td>
+		<td>31.0&nbsp;</td>
+		<td>2015-05-29 13:23&nbsp;</td>
+		<td>22.7&nbsp;</td>
+		<td>2015-05-29 04:30&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.9&nbsp;</td>
+		<td>359&nbsp;</td>
+		<td>5.2&nbsp;</td>
+		<td>201&nbsp;</td>
+		<td>2015-05-29 13:48&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>30</td>
+		<td>965.4&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>967.7&nbsp;</td>
+		<td>2015-05-30 22:28&nbsp;</td>
+		<td>963.9&nbsp;</td>
+		<td>2015-05-30 16:15&nbsp;</td>
+		<td>26.9&nbsp;</td>
+		<td>33.3&nbsp;</td>
+		<td>2015-05-30 13:36&nbsp;</td>
+		<td>23.1&nbsp;</td>
+		<td>2015-05-30 04:34&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>1.0&nbsp;</td>
+		<td>3&nbsp;</td>
+		<td>4.7&nbsp;</td>
+		<td>200&nbsp;</td>
+		<td>2015-05-30 18:04&nbsp;</td>
+		<td>0.0&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 
+	 
+	 <tr>
+		<td nowrap>31</td>
+		<td>967.3&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>969.5&nbsp;</td>
+		<td>2015-05-31 21:57&nbsp;</td>
+		<td>965.7&nbsp;</td>
+		<td>2015-05-31 03:49&nbsp;</td>
+		<td>25.2&nbsp;</td>
+		<td>30.7&nbsp;</td>
+		<td>2015-05-31 11:59&nbsp;</td>
+		<td>23.0&nbsp;</td>
+		<td>2015-05-31 23:19&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>X&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>0.6&nbsp;</td>
+		<td>358&nbsp;</td>
+		<td>5.3&nbsp;</td>
+		<td>231&nbsp;</td>
+		<td>2015-05-31 12:20&nbsp;</td>
+		<td>10.5&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	 </tr>
+	 		
+	</tbody>
+	</table>
+	<label class="imp"></label>
+</div>
+</body>
+</html>
