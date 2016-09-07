@@ -9,7 +9,7 @@ import datetime
 
 stl = list(stList.keys())
 db_path = "./db/%s.db"
-target_dir = [i for i in os.listdir("./data") if os.path.isdir("./data/"+i)]
+target_dir = sorted([i for i in os.listdir("./data") if os.path.isdir("./data/"+i)], key=lambda x: int(x[:x.find("_")]))
 column = {"觀測時間(LST)ObsTime":"Time",
           "測站氣壓(hPa)StnPres":"Pres",
           "氣溫(℃)Temperature":"Temp",
