@@ -38,10 +38,10 @@ def get_data(ID):
     #end
     #z+=1
 
-    
-monkey.patch_all()
-jobs = [gevent.spawn(get_data, ID) for ID in stList.keys()]
-gevent.joinall(jobs)
+if __name__ == '__main__':   
+    monkey.patch_all()
+    jobs = [gevent.spawn(get_data, ID) for ID in stList.keys()]
+    gevent.joinall(jobs)
 
 
 
